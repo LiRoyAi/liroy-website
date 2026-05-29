@@ -4,10 +4,22 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const events = [
-  { year: "1982", text: "Pierwszy sygnał. Kielce." },
-  { year: "1995", text: "Scyzoryk. Polska nigdy nie była taka sama." },
-  { year: "2015", text: "Sejm. Bo ktoś musiał." },
-  { year: "2026", text: "Nowy rozdział. Jeszcze nie czas." },
+  {
+    year: "1982",
+    text: "Grudzień 1982. W domowych warunkach w Kielcach powstaje pierwszy polski utwór rap. Nikt jeszcze nie wiedział, że to początek rewolucji.",
+  },
+  {
+    year: "1995",
+    text: "Alboom sprzedał się w nakładzie ponad 500 000 egzemplarzy — jedna z najlepiej sprzedających się polskich płyt w historii. Nie był to przypadek. To był manifest.",
+  },
+  {
+    year: "2015",
+    text: "Producent, przedsiębiorca, artysta, poseł. Człowiek, który zawsze mówił wprost — na scenie i poza nią. Bo ktoś musiał.",
+  },
+  {
+    year: "2026",
+    text: "Przez ponad 30 lat na scenie udowadniał, że rap to nie trend — to język. Nowy rozdział: album L7 z DJ HWR.",
+  },
 ];
 
 function TimelineItem({
@@ -55,22 +67,22 @@ function TimelineItem({
 
         {/* Text */}
         <p
-          className={`mt-4 text-[#f5f5f5] text-lg sm:text-xl md:text-2xl max-w-lg ${isRight ? "text-right" : "text-left"}`}
+          className={`mt-4 text-[#f5f5f5] text-base sm:text-lg md:text-xl max-w-lg leading-relaxed ${isRight ? "text-right" : "text-left"}`}
           style={{
             fontFamily: "'Barlow Condensed', sans-serif",
-            fontWeight: 700,
-            letterSpacing: "0.05em",
+            fontWeight: 600,
+            letterSpacing: "0.03em",
           }}
         >
           {text}
         </p>
 
         {/* Animated gold line */}
-        <div className={`mt-4 overflow-hidden ${isRight ? "flex justify-end" : ""}`} style={{ maxWidth: "300px" }}>
-          <motion.div
-            className="h-px bg-[#ca8a04]"
-            style={{ width: lineWidth }}
-          />
+        <div
+          className={`mt-4 overflow-hidden ${isRight ? "flex justify-end" : ""}`}
+          style={{ maxWidth: "300px" }}
+        >
+          <motion.div className="h-px bg-[#ca8a04]" style={{ width: lineWidth }} />
         </div>
       </motion.div>
     </motion.div>

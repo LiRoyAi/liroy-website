@@ -11,6 +11,22 @@ function YouTubeIcon() {
   );
 }
 
+function SpotifyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+    </svg>
+  );
+}
+
+function AppleMusicIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a6.673 6.673 0 0 0-1.769-.75c-.65-.148-1.3-.21-1.95-.227-.195-.007-.39-.01-.584-.013H6.73c-.195.003-.39.006-.584.013-.65.017-1.3.079-1.95.227a6.673 6.673 0 0 0-1.769.75C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.002 6.32 0 6.516 0 6.712v10.576c0 .196.002.392.006.588a9.23 9.23 0 0 0 .24 2.19c.317 1.31 1.062 2.31 2.18 3.043a6.673 6.673 0 0 0 1.769.75c.65.148 1.3.21 1.95.227.194.007.389.01.584.013h10.542c.195-.003.39-.006.584-.013.65-.017 1.3-.079 1.95-.227a6.673 6.673 0 0 0 1.769-.75c1.118-.733 1.863-1.733 2.18-3.043a9.23 9.23 0 0 0 .24-2.19c.004-.196.006-.392.006-.588V6.712c0-.196-.002-.392-.006-.588zM8.007 18.607a1.16 1.16 0 0 1-1.144-1.175V6.568a1.16 1.16 0 0 1 1.144-1.175c.23 0 .458.069.653.203l8.04 5.432a1.168 1.168 0 0 1 0 1.944l-8.04 5.432a1.16 1.16 0 0 1-.653.203z" />
+    </svg>
+  );
+}
+
 function InstagramIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -35,20 +51,18 @@ function FacebookIcon() {
   );
 }
 
-function XIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
 const socials = [
-  { Icon: YouTubeIcon, href: "https://youtube.com/@liroy", label: "YouTube" },
-  { Icon: InstagramIcon, href: "https://instagram.com/liroy", label: "Instagram" },
-  { Icon: TikTokIcon, href: "https://tiktok.com/@liroy", label: "TikTok" },
-  { Icon: FacebookIcon, href: "https://facebook.com/liroy", label: "Facebook" },
-  { Icon: XIcon, href: "https://x.com/liroy", label: "X" },
+  { Icon: YouTubeIcon, href: "https://www.youtube.com/@liroyPolska", label: "YouTube" },
+  { Icon: SpotifyIcon, href: "https://open.spotify.com/artist/1YNJc03EgclUK2rnLX7tE5", label: "Spotify" },
+  { Icon: AppleMusicIcon, href: "https://music.apple.com/pl/artist/liroy/295315959", label: "Apple Music" },
+  { Icon: InstagramIcon, href: "https://www.instagram.com/liroy_marzec", label: "Instagram" },
+  { Icon: FacebookIcon, href: "https://www.facebook.com/LiroyPolska", label: "Facebook" },
+  { Icon: TikTokIcon, href: "https://www.tiktok.com/@liroypolska", label: "TikTok" },
+];
+
+const contacts = [
+  { type: "BOOKING", email: "booking@liroy.pl" },
+  { type: "MEDIA", email: "media@liroy.pl" },
 ];
 
 export default function Kontakt() {
@@ -74,11 +88,8 @@ export default function Kontakt() {
         </motion.div>
 
         {/* Contact rows */}
-        <div className="space-y-10 mb-20">
-          {[
-            { type: "BOOKING", email: "booking@liroy.pl" },
-            { type: "MEDIA", email: "media@liroy.pl" },
-          ].map(({ type, email }, i) => (
+        <div className="space-y-10 mb-12">
+          {contacts.map(({ type, email }, i) => (
             <motion.div
               key={type}
               initial={{ opacity: 0, x: -30 }}
@@ -101,14 +112,38 @@ export default function Kontakt() {
               </a>
             </motion.div>
           ))}
+
+          {/* Press Kit row */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-white/[0.06] pb-8"
+          >
+            <span
+              className="text-[#444] text-xs tracking-[0.4em] uppercase"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+            >
+              PRESS KIT
+            </span>
+            <a
+              href="https://shop.liroy.pl/pages/press-kit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#f5f5f5] hover:text-[#ca8a04] transition-colors duration-200 cursor-pointer text-lg sm:text-2xl font-black tracking-wide"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              Pobierz &rarr;
+            </a>
+          </motion.div>
         </div>
 
         {/* Socials */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex items-center gap-6 mb-16"
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="flex flex-wrap items-center gap-2 mb-16"
         >
           {socials.map(({ Icon, href, label }) => (
             <a
