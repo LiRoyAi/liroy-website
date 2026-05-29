@@ -7,42 +7,92 @@ export const metadata: Metadata = {
   description: "Twoja antena na kulturę bez kompromisów.",
 };
 
+// Force server-render on every request so a stale empty build result
+// never gets served while the API key is valid.
+export const dynamic = "force-dynamic";
+
 const PLAYLIST_ID = "PL1JRTA9pmLreGR10UG36dg6-C7BFQ9KFn";
+const BASE_URL = "https://liroy-website.vercel.app";
 
-async function getPlaylistVideos(): Promise<VideoItem[]> {
+type FetchResult =
+  | { ok: true; videos: VideoItem[] }
+  | { ok: false; reason: string };
+
+async function getPlaylistVideos(): Promise<FetchResult> {
   const key = process.env.YOUTUBE_API_KEY;
-  if (!key) return [];
 
-  try {
-    const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=50&key=${key}`,
-      { next: { revalidate: 3600 } }
-    );
-    if (!res.ok) return [];
-
-    const data = await res.json();
-
-    return (data.items ?? [])
-      .filter(
-        (item: { snippet: { resourceId?: { videoId?: string }; thumbnails?: { medium?: { url?: string }; high?: { url?: string } } } }) =>
-          item.snippet?.resourceId?.videoId &&
-          item.snippet?.thumbnails?.medium?.url
-      )
-      .map((item: { snippet: { resourceId: { videoId: string }; title: string; thumbnails: { high?: { url: string }; medium: { url: string } }; publishedAt: string } }) => ({
-        videoId: item.snippet.resourceId.videoId,
-        title: item.snippet.title,
-        thumbnail:
-          item.snippet.thumbnails.high?.url ??
-          item.snippet.thumbnails.medium.url,
-        publishedAt: item.snippet.publishedAt,
-      }));
-  } catch {
-    return [];
+  if (!key) {
+    console.error("[LIROY TV] YOUTUBE_API_KEY is not set");
+    return { ok: false, reason: "YOUTUBE_API_KEY env var missing" };
   }
+
+  const url =
+    `https://www.googleapis.com/youtube/v3/playlistItems` +
+    `?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=50&key=${key}`;
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      // Some Google API keys carry HTTP-referrer restrictions.
+      // Server-side requests have no referrer by default — add one explicitly.
+      headers: { Referer: BASE_URL },
+      cache: "no-store",
+    });
+  } catch (err) {
+    console.error("[LIROY TV] Network error fetching playlist:", err);
+    return { ok: false, reason: `Network error: ${String(err)}` };
+  }
+
+  if (!res.ok) {
+    const body = await res.text().catch(() => "(unreadable)");
+    console.error(
+      `[LIROY TV] YouTube API responded ${res.status} ${res.statusText}: ${body}`
+    );
+    return { ok: false, reason: `YouTube API ${res.status}: ${body.slice(0, 200)}` };
+  }
+
+  let data: { items?: unknown[] };
+  try {
+    data = await res.json();
+  } catch (err) {
+    console.error("[LIROY TV] Failed to parse YouTube API response:", err);
+    return { ok: false, reason: "Invalid JSON from YouTube API" };
+  }
+
+  type RawItem = {
+    snippet: {
+      resourceId?: { videoId?: string };
+      title: string;
+      thumbnails?: {
+        high?: { url: string };
+        medium?: { url: string };
+      };
+      publishedAt: string;
+    };
+  };
+
+  const videos: VideoItem[] = (data.items ?? [])
+    .filter((item): item is RawItem => {
+      const s = (item as RawItem).snippet;
+      return !!(s?.resourceId?.videoId && (s?.thumbnails?.medium?.url || s?.thumbnails?.high?.url));
+    })
+    .map((item) => ({
+      videoId: item.snippet.resourceId!.videoId!,
+      title: item.snippet.title,
+      thumbnail:
+        item.snippet.thumbnails?.high?.url ??
+        item.snippet.thumbnails!.medium!.url,
+      publishedAt: item.snippet.publishedAt,
+    }));
+
+  console.log(`[LIROY TV] Fetched ${videos.length} videos from playlist ${PLAYLIST_ID}`);
+  return { ok: true, videos };
 }
 
 export default async function TVPage() {
-  const videos = await getPlaylistVideos();
+  const result = await getPlaylistVideos();
+  const videos = result.ok ? result.videos : [];
+  const apiError = result.ok ? null : result.reason;
 
   return (
     <div className="relative min-h-screen bg-[#020202] flex flex-col overflow-hidden">
@@ -98,8 +148,6 @@ export default async function TVPage() {
             >
               LIROY TV
             </h1>
-
-            {/* Live badge */}
             <div className="flex items-center gap-2 mb-2">
               <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
               <span
@@ -118,17 +166,24 @@ export default async function TVPage() {
           </p>
         </div>
 
-        {/* Interactive player + grid (client component) */}
+        {/* Player always renders — embed works regardless of API */}
         <VideoGrid videos={videos} />
 
-        {/* Fallback if API failed */}
-        {videos.length === 0 && (
-          <p
-            className="text-[#333] text-xs tracking-widest uppercase mt-8 text-center"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          >
-            Nie można załadować playlisty. Odśwież stronę.
-          </p>
+        {/* API error — visible only in dev/staging, helps diagnose */}
+        {apiError && (
+          <div className="mt-8 w-full rounded-xl border border-red-900/40 bg-red-950/20 p-4">
+            <p
+              className="text-red-500 text-xs tracking-widest uppercase mb-2"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+            >
+              Nie można załadować listy filmów
+            </p>
+            <p
+              className="text-red-900 text-[11px] font-mono break-all"
+            >
+              {apiError}
+            </p>
+          </div>
         )}
       </div>
     </div>
