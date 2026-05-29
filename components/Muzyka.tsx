@@ -1,0 +1,219 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { ExternalLink } from "lucide-react";
+
+const RELEASE_DATE = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+function useCountdown(target: Date) {
+  const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
+
+  useEffect(() => {
+    const tick = () => {
+      const diff = Math.max(0, target.getTime() - Date.now());
+      setTime({
+        d: Math.floor(diff / 86400000),
+        h: Math.floor((diff % 86400000) / 3600000),
+        m: Math.floor((diff % 3600000) / 60000),
+        s: Math.floor((diff % 60000) / 1000),
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [target]);
+
+  return time;
+}
+
+const albums = [
+  { title: "Scyzoryk", year: "1995", desc: "Album, który zmienił Polskę." },
+  { title: "Alboom", year: "1997", desc: "Szczyt kariery. Złota płyta." },
+  { title: "Syndykat", year: "2000", desc: "Ciemniejszy. Dojrzalszy." },
+  { title: "Strefa Mroku", year: "2003", desc: "Bunt nie milknie." },
+  { title: "L7", year: "2026", desc: "Nowy sygnał. Nowa era.", isFeatured: true },
+];
+
+export default function Muzyka() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const time = useCountdown(RELEASE_DATE);
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return (
+    <section id="muzyka" ref={ref} className="bg-[#080808] py-32 px-6 md:px-16 lg:px-24">
+      {/* Label */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6 }}
+        className="mb-16"
+      >
+        <span
+          className="text-[10px] tracking-[0.5em] text-[#444] uppercase"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+        >
+          MUZYKA
+        </span>
+      </motion.div>
+
+      {/* Featured L7 */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="relative rounded-2xl border border-[#ca8a04] bg-[#0a0a08] p-8 md:p-12 mb-12 overflow-hidden"
+        style={{ boxShadow: "0 0 60px rgba(202,138,4,0.12), inset 0 0 60px rgba(202,138,4,0.04)" }}
+      >
+        {/* Background glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(202,138,4,0.08) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* Album placeholder */}
+          <div
+            className="aspect-square rounded-xl flex items-center justify-center max-w-xs mx-auto md:mx-0"
+            style={{
+              background: "linear-gradient(135deg, #1a1508 0%, #0a0a08 50%, #1a0808 100%)",
+              border: "1px solid rgba(202,138,4,0.2)",
+            }}
+          >
+            <span
+              className="text-[#ca8a04] select-none"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(4rem, 12vw, 8rem)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              L7
+            </span>
+          </div>
+
+          <div>
+            <div
+              className="text-[#ca8a04] text-xs tracking-[0.4em] mb-3 uppercase"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+            >
+              NOWY ALBUM
+            </div>
+            <h2
+              className="text-white mb-2"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(3rem, 8vw, 6rem)",
+                letterSpacing: "-0.02em",
+                lineHeight: 0.9,
+              }}
+            >
+              L7
+            </h2>
+            <p className="text-[#888] text-sm mb-8">LIROY · 2026</p>
+
+            {/* Countdown */}
+            <div className="mb-8">
+              <div
+                className="text-[10px] tracking-[0.4em] text-[#555] uppercase mb-4"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+              >
+                WINYL L7 &mdash; PREMIERA
+              </div>
+              <div className="flex gap-4">
+                {[
+                  { val: pad(time.d), label: "DNI" },
+                  { val: pad(time.h), label: "GODZ" },
+                  { val: pad(time.m), label: "MIN" },
+                  { val: pad(time.s), label: "SEK" },
+                ].map(({ val, label }) => (
+                  <div key={label} className="text-center">
+                    <div
+                      className="text-[#ca8a04] tabular-nums"
+                      style={{
+                        fontFamily: "'Barlow Condensed', sans-serif",
+                        fontWeight: 900,
+                        fontSize: "clamp(1.8rem, 4vw, 3rem)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {val}
+                    </div>
+                    <div
+                      className="text-[#444] text-[9px] tracking-widest mt-1"
+                      style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+                    >
+                      {label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Spotify link */}
+            <a
+              href="https://open.spotify.com/artist/liroy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-[#ca8a04] text-[#ca8a04] hover:bg-[#ca8a04] hover:text-black transition-all duration-300 cursor-pointer text-sm font-bold tracking-widest"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+              </svg>
+              SŁUCHAJ NA SPOTIFY
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Discography grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.2 }}
+      >
+        <div
+          className="text-[10px] tracking-[0.5em] text-[#444] uppercase mb-8"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+        >
+          DYSKOGRAFIA
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {albums.filter((a) => !a.isFeatured).map((album, i) => (
+            <motion.div
+              key={album.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
+              whileHover={{ borderColor: "rgba(202,138,4,0.5)", y: -4 }}
+              className="rounded-xl border border-white/[0.06] bg-[#0d0d0d] p-5 transition-all duration-300 cursor-default"
+            >
+              <div
+                className="text-[#ca8a04] text-xs mb-1"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, letterSpacing: "0.1em" }}
+              >
+                {album.year}
+              </div>
+              <div
+                className="text-white text-lg mb-1"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, letterSpacing: "-0.01em" }}
+              >
+                {album.title}
+              </div>
+              <div className="text-[#555] text-xs leading-relaxed">{album.desc}</div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+}
