@@ -1,14 +1,51 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import VideoGrid, { type VideoItem } from "@/components/VideoGrid";
 
 export const metadata: Metadata = {
   title: "LIROY TV — 24/7 Muzyka. Kultura. Bunt.",
   description: "Twoja antena na kulturę bez kompromisów.",
 };
 
-export default function TVPage() {
+const PLAYLIST_ID = "PL1JRTA9pmLreGR10UG36dg6-C7BFQ9KFn";
+
+async function getPlaylistVideos(): Promise<VideoItem[]> {
+  const key = process.env.YOUTUBE_API_KEY;
+  if (!key) return [];
+
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=50&key=${key}`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+
+    const data = await res.json();
+
+    return (data.items ?? [])
+      .filter(
+        (item: { snippet: { resourceId?: { videoId?: string }; thumbnails?: { medium?: { url?: string }; high?: { url?: string } } } }) =>
+          item.snippet?.resourceId?.videoId &&
+          item.snippet?.thumbnails?.medium?.url
+      )
+      .map((item: { snippet: { resourceId: { videoId: string }; title: string; thumbnails: { high?: { url: string }; medium: { url: string } }; publishedAt: string } }) => ({
+        videoId: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        thumbnail:
+          item.snippet.thumbnails.high?.url ??
+          item.snippet.thumbnails.medium.url,
+        publishedAt: item.snippet.publishedAt,
+      }));
+  } catch {
+    return [];
+  }
+}
+
+export default async function TVPage() {
+  const videos = await getPlaylistVideos();
+
   return (
-    <div className="relative min-h-screen bg-[#020202] flex flex-col overflow-hidden scanlines">
+    <div className="relative min-h-screen bg-[#020202] flex flex-col overflow-hidden">
       {/* Full-page scanlines */}
       <div
         className="fixed inset-0 pointer-events-none z-10"
@@ -40,64 +77,59 @@ export default function TVPage() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 flex-1 flex flex-col items-center justify-start px-6 md:px-12 pb-16 pt-10 max-w-5xl mx-auto w-full">
+      <div className="relative z-20 flex-1 flex flex-col items-center justify-start px-6 md:px-12 pb-24 pt-8 max-w-5xl mx-auto w-full">
         {/* Header */}
-        <div className="w-full mb-2">
+        <div className="w-full mb-8">
           <div
             className="text-[10px] tracking-[0.5em] text-[#333] uppercase mb-4"
             style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
           >
             OFICJALNY KANAŁ
           </div>
-          <h1
-            className="text-[#ca8a04] leading-none"
-            style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(4rem, 14vw, 10rem)",
-              letterSpacing: "0.05em",
-            }}
-          >
-            LIROY TV
-          </h1>
+          <div className="flex items-end justify-between gap-4 flex-wrap">
+            <h1
+              className="text-[#ca8a04] leading-none"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(3.5rem, 12vw, 8rem)",
+                letterSpacing: "0.05em",
+              }}
+            >
+              LIROY TV
+            </h1>
+
+            {/* Live badge */}
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+              <span
+                className="text-[#333] text-[10px] tracking-[0.4em] uppercase"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+              >
+                24 GODZINY NA DOBĘ
+              </span>
+            </div>
+          </div>
           <p
-            className="text-[#444] text-sm tracking-[0.25em] uppercase mt-2 mb-8"
+            className="text-[#444] text-sm tracking-[0.25em] uppercase mt-1"
             style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
           >
             24/7 &mdash; Muzyka. Kultura. Bunt.
           </p>
         </div>
 
-        {/* YouTube embed */}
-        <div className="w-full aspect-video rounded-xl overflow-hidden border border-white/[0.07] mb-8 relative">
-          <iframe
-            src="https://www.youtube.com/embed/videoseries?list=PLplaceholder&autoplay=0&rel=0&modestbranding=1"
-            title="LIROY TV — Oficjalny kanał YouTube"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="w-full h-full"
-            style={{ border: "none" }}
-          />
-        </div>
+        {/* Interactive player + grid (client component) */}
+        <VideoGrid videos={videos} />
 
-        {/* Description */}
-        <p
-          className="text-[#555] text-center text-base tracking-wide max-w-xl"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 400, letterSpacing: "0.05em" }}
-        >
-          Twoja antena na kulturę bez kompromisów.
-        </p>
-
-        {/* Live indicator */}
-        <div className="flex items-center gap-2 mt-6">
-          <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-          <span
-            className="text-[#333] text-[10px] tracking-[0.4em] uppercase"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+        {/* Fallback if API failed */}
+        {videos.length === 0 && (
+          <p
+            className="text-[#333] text-xs tracking-widest uppercase mt-8 text-center"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
-            24 GODZINY NA DOBĘ
-          </span>
-        </div>
+            Nie można załadować playlisty. Odśwież stronę.
+          </p>
+        )}
       </div>
     </div>
   );
