@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 const albums = [
   { year: "1992", title: "East On Da Mic", note: "jako P.M. Cool Lee", featured: false, upcoming: false },
@@ -56,18 +57,14 @@ function AlbumRow({
 
         <div className="w-px h-5 bg-[#ca8a04] flex-shrink-0" />
 
-        <div className="flex-1 flex items-baseline gap-3 flex-wrap">
-          <span
-            className="text-[#f5f5f5]"
-            style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(1.3rem, 3vw, 1.8rem)",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {album.title}
-          </span>
+        <div className="flex-1 flex items-center gap-3 flex-wrap">
+          <Image
+            src="/images/l7-logo.png"
+            alt="L7"
+            width={72}
+            height={50}
+            className="object-contain flex-shrink-0"
+          />
           {album.note && (
             <span
               className="text-[#888] text-sm"

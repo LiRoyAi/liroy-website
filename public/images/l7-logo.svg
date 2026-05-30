@@ -1,0 +1,18 @@
+<svg fill="#ca8a04" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 200" role="img" aria-label="L7">
+  <title>L7</title>
+  <!-- L — modular block construction matching stage banner design -->
+  <!-- Left stem (full height) -->
+  <rect x="0"  y="0"   width="55" height="200"/>
+  <!-- Top horizontal bar -->
+  <rect x="55" y="0"   width="75" height="40"/>
+  <!-- Inner-right column (creates the distinctive double-bar top of the L) -->
+  <rect x="93" y="40"  width="37" height="78"/>
+  <!-- Bottom foot -->
+  <rect x="55" y="162" width="75" height="38"/>
+
+  <!-- 7 — top bar + diagonal stroke -->
+  <!-- Top horizontal bar -->
+  <rect x="150" y="0"  width="140" height="40"/>
+  <!-- Diagonal stroke: consistent 42-unit stroke width -->
+  <polygon points="248,40 290,40 226,200 184,200"/>
+</svg>

@@ -139,25 +139,22 @@ export default function Muzyka() {
         />
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          {/* Album art placeholder */}
+          {/* Album art — L7 logo */}
           <div
-            className="aspect-square rounded-xl flex items-center justify-center max-w-xs mx-auto md:mx-0"
+            className="aspect-square rounded-xl flex items-center justify-center max-w-xs mx-auto md:mx-0 p-10"
             style={{
               background: "linear-gradient(135deg, #1a1508 0%, #0a0a08 50%, #1a0808 100%)",
               border: "1px solid rgba(202,138,4,0.2)",
             }}
           >
-            <span
-              className="text-[#ca8a04] select-none"
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(4rem, 12vw, 8rem)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              L7
-            </span>
+            <Image
+              src="/images/l7-logo.png"
+              alt="L7"
+              width={290}
+              height={200}
+              className="w-full h-auto object-contain"
+              priority
+            />
           </div>
 
           <div>
@@ -167,18 +164,16 @@ export default function Muzyka() {
             >
               NOWY ALBUM
             </div>
-            <h2
-              className="text-white mb-1"
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(3rem, 8vw, 6rem)",
-                letterSpacing: "-0.02em",
-                lineHeight: 0.9,
-              }}
-            >
-              L7
-            </h2>
+            <div className="mb-1">
+              <Image
+                src="/images/l7-logo.png"
+                alt="L7"
+                width={290}
+                height={200}
+                className="object-contain"
+                style={{ maxHeight: "clamp(3rem, 8vw, 6rem)", width: "auto" }}
+              />
+            </div>
             <p className="text-[#888] text-sm mb-8">LIROY &amp; DJ HWR &middot; 2026</p>
 
             {/* Countdown */}
