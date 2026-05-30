@@ -25,7 +25,7 @@ const events = [
   },
   {
     year: "2026",
-    text: "Przez ponad 30 lat na scenie udowadnia, że rap to nie trend — to język. Nowy rozdział trwa: album L7 z DJ HWR.",
+    text: "Przez ponad 30 lat na scenie udowadnia, że rap to nie trend — to język. Nowy rozdział trwa: album L7 z DJ HWR i film dokumentalny \"Don't F**k with Liroy\" (2025, reż. Małgorzata Kowalczyk).",
     image: "/images/hist-2026.webp",
     imageAlt: "Liroy — kontakt z tłumem, Kielce",
   },

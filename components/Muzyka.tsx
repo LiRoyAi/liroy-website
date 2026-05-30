@@ -29,13 +29,6 @@ function useCountdown(target: Date) {
   return time;
 }
 
-const albums = [
-  { title: "Scyzoryk", year: "1993", desc: "Debiut, który zapoczątkował wszystko." },
-  { title: "Alboom", year: "1995", desc: "500 000 egzemplarzy. Jedna z najlepiej sprzedających się polskich płyt." },
-  { title: "Syndykat", year: "2000", desc: "Ciemniejszy. Dojrzalszy." },
-  { title: "Strefa Mroku", year: "2003", desc: "Bunt nie milknie." },
-  { title: "L7", year: "2026", desc: "Nowy sygnał. Nowa era.", isFeatured: true },
-];
 
 const streamingLinks = [
   {
@@ -235,45 +228,6 @@ export default function Muzyka() {
         </div>
       </motion.div>
 
-      {/* Discography grid */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.2 }}
-      >
-        <div
-          className="text-[10px] tracking-[0.5em] text-[#444] uppercase mb-8"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
-        >
-          DYSKOGRAFIA
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {albums.filter((a) => !a.isFeatured).map((album, i) => (
-            <motion.div
-              key={album.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
-              whileHover={{ borderColor: "rgba(202,138,4,0.5)", y: -4 }}
-              className="rounded-xl border border-white/[0.06] bg-[#0d0d0d] p-5 transition-all duration-300 cursor-default"
-            >
-              <div
-                className="text-[#ca8a04] text-xs mb-1"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, letterSpacing: "0.1em" }}
-              >
-                {album.year}
-              </div>
-              <div
-                className="text-white text-lg mb-1"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, letterSpacing: "-0.01em" }}
-              >
-                {album.title}
-              </div>
-              <div className="text-[#555] text-xs leading-relaxed">{album.desc}</div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
 
       </div>{/* end z-10 wrapper */}
     </section>

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Historia from "@/components/Historia";
+import Dyskografia from "@/components/Dyskografia";
 import Muzyka from "@/components/Muzyka";
 import Sygnal from "@/components/Sygnal";
 import Sklep from "@/components/Sklep";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Historia />
+      <Dyskografia />
       <Muzyka />
       <Sygnal />
       <Sklep />
