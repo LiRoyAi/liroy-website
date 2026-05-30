@@ -141,7 +141,7 @@ export default function Muzyka() {
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Album art — L7 logo */}
           <div
-            className="aspect-square rounded-xl flex items-center justify-center max-w-xs mx-auto md:mx-0 p-10"
+            className="aspect-square rounded-xl flex items-center justify-center max-w-xs mx-auto md:mx-0 p-8"
             style={{
               background: "linear-gradient(135deg, #1a1508 0%, #0a0a08 50%, #1a0808 100%)",
               border: "1px solid rgba(202,138,4,0.2)",
@@ -150,9 +150,10 @@ export default function Muzyka() {
             <Image
               src="/images/l7-logo.png"
               alt="L7"
-              width={290}
-              height={200}
+              width={1247}
+              height={944}
               className="w-full h-auto object-contain"
+              style={{ mixBlendMode: "screen" }}
               priority
             />
           </div>
@@ -168,10 +169,10 @@ export default function Muzyka() {
               <Image
                 src="/images/l7-logo.png"
                 alt="L7"
-                width={290}
-                height={200}
-                className="object-contain"
-                style={{ maxHeight: "clamp(3rem, 8vw, 6rem)", width: "auto" }}
+                width={1247}
+                height={944}
+                className="object-contain h-16 sm:h-20 md:h-24 w-auto"
+                style={{ mixBlendMode: "screen" }}
               />
             </div>
             <p className="text-[#888] text-sm mb-8">LIROY &amp; DJ HWR &middot; 2026</p>
