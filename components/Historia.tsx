@@ -19,13 +19,13 @@ const events = [
   },
   {
     year: "2015",
-    text: "Producent, przedsiębiorca, artysta, poseł. Człowiek, który zawsze mówił wprost — na scenie i poza nią. Bo ktoś musiał.",
+    text: "Producent, przedsiębiorca, artysta, poseł. Człowiek, który zawsze mówi wprost — na scenie i poza nią. Bo ktoś musi.",
     image: null,
     imageAlt: null,
   },
   {
     year: "2026",
-    text: "Przez ponad 30 lat na scenie udowadniał, że rap to nie trend — to język. Nowy rozdział: album L7 z DJ HWR.",
+    text: "Przez ponad 30 lat na scenie udowadnia, że rap to nie trend — to język. Nowy rozdział trwa: album L7 z DJ HWR.",
     image: "/images/hist-2026.webp",
     imageAlt: "Liroy — kontakt z tłumem, Kielce",
   },
