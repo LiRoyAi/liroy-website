@@ -4,6 +4,7 @@ import Historia from "@/components/Historia";
 import Dyskografia from "@/components/Dyskografia";
 import Muzyka from "@/components/Muzyka";
 import Sygnal from "@/components/Sygnal";
+import DropRoom from "@/components/DropRoom";
 import Sklep from "@/components/Sklep";
 import LiroyTV from "@/components/LiroyTV";
 import Kontakt from "@/components/Kontakt";
@@ -17,6 +18,7 @@ export default function Home() {
       <Dyskografia />
       <Muzyka />
       <Sygnal />
+      <DropRoom />
       <Sklep />
       <LiroyTV />
       <Kontakt />
