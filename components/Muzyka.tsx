@@ -60,19 +60,31 @@ export default function Muzyka() {
 
   return (
     <section id="muzyka" ref={ref} className="relative bg-[#080808] py-32 px-6 md:px-16 lg:px-24 overflow-hidden">
-      {/* Background photo */}
+      {/* Background photo — full bleed, vertical fade top/bottom */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
           src="/images/muzyka-bg.webp"
           alt=""
           fill
           className="object-cover object-center"
+          style={{ filter: "brightness(0.35) grayscale(15%)" }}
           sizes="100vw"
         />
+        {/* Top fade — from dark above */}
         <div
           className="absolute inset-0"
-          style={{ background: "rgba(8,8,8,0.88)" }}
+          style={{
+            background: "linear-gradient(to bottom, #080808 0%, transparent 20%)",
+          }}
         />
+        {/* Bottom fade — to dark below */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, #080808 0%, transparent 20%)",
+          }}
+        />
+        {/* Gold glow accent */}
         <div
           className="absolute inset-0"
           style={{

@@ -63,7 +63,7 @@ function TimelineItem({
       style={{ opacity }}
       className="min-h-[80vh] flex flex-col justify-center px-8 md:px-20 lg:px-32 relative"
     >
-      {/* Background photo — subtle, full-width, fades in with scroll */}
+      {/* Background photo — full bleed, vertical fade top/bottom */}
       {image && (
         <motion.div
           style={{ opacity: imgOpacity }}
@@ -76,17 +76,30 @@ function TimelineItem({
             className="object-cover"
             style={{
               objectPosition: "center center",
-              filter: "grayscale(30%)",
+              filter: "grayscale(20%) brightness(0.45)",
             }}
             sizes="100vw"
           />
-          {/* Strong overlay to keep text legible and design dark */}
+          {/* Top fade — bleeds from section above */}
           <div
             className="absolute inset-0"
             style={{
-              background: isRight
-                ? "linear-gradient(to left, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.92) 55%, rgba(8,8,8,0.98) 100%)"
-                : "linear-gradient(to right, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.92) 55%, rgba(8,8,8,0.98) 100%)",
+              background: "linear-gradient(to bottom, #080808 0%, transparent 22%)",
+            }}
+          />
+          {/* Bottom fade — bleeds into section below */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to top, #080808 0%, transparent 22%)",
+            }}
+          />
+          {/* Center subtle vignette for text contrast — no hard edges */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 100% 60% at 50% 50%, transparent 30%, rgba(8,8,8,0.45) 100%)",
             }}
           />
         </motion.div>

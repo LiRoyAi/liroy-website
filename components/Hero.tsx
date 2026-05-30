@@ -9,7 +9,7 @@ const LETTERS = ["L", "I", "R", "O", "Y"];
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#080808]">
-      {/* Background photo */}
+      {/* Background photo — full bleed, no frame */}
       <div className="absolute inset-0">
         <Image
           src="/images/hero.webp"
@@ -17,20 +17,23 @@ export default function Hero() {
           fill
           priority
           className="object-cover"
-          style={{ objectPosition: "50% 15%" }}
+          style={{ objectPosition: "50% 15%", filter: "brightness(0.55)" }}
           sizes="100vw"
         />
-        {/* Multi-layer darkening so text stays readable */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "rgba(8,8,8,0.62)" }}
-        />
-        {/* Gradient: transparent top, dark bottom — keeps glow feel */}
+        {/* Top vignette — fades from dark so navbar area is readable */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0) 30%, rgba(8,8,8,0) 50%, rgba(8,8,8,0.85) 100%)",
+              "linear-gradient(to bottom, #080808 0%, transparent 18%)",
+          }}
+        />
+        {/* Bottom fade — bleeds seamlessly into Historia below */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 55%, rgba(8,8,8,0.7) 80%, #080808 100%)",
           }}
         />
       </div>
