@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Image from "next/image";
 
 const events = [
@@ -25,7 +25,7 @@ const events = [
   },
   {
     year: "2026",
-    text: "Przez ponad 30 lat na scenie udowadnia, że rap to nie trend — to język. Nowy rozdział trwa: album L7 z DJ HWR i film dokumentalny \"Don't F**k with Liroy\" (2025, reż. Małgorzata Kowalczyk).",
+    text: "Przez ponad 30 lat na scenie udowadnia, że rap to nie trend — to język. Nowy rozdział trwa: album L7 z DJ HWR.",
     image: "/images/hist-2026.webp",
     imageAlt: "Liroy — kontakt z tłumem, Kielce",
   },
@@ -157,6 +157,96 @@ export default function Historia() {
           index={i}
         />
       ))}
+
+      <DocCard />
     </section>
+  );
+}
+
+function DocCard() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="mx-8 md:mx-20 lg:mx-32 mb-20"
+    >
+      <div
+        className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0c0c0c] p-8 md:p-12"
+        style={{ boxShadow: "0 0 60px rgba(0,0,0,0.6)" }}
+      >
+        {/* Top bar */}
+        <div className="flex flex-wrap items-center gap-3 mb-8">
+          <span
+            className="text-[9px] tracking-[0.4em] text-[#444] uppercase px-3 py-1 border border-white/[0.08] rounded-full"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+          >
+            FILM DOKUMENTALNY
+          </span>
+          <span
+            className="text-[9px] tracking-[0.3em] text-[#ca8a04] uppercase px-3 py-1 border border-[rgba(202,138,4,0.3)] rounded-full"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+          >
+            DOSTĘPNY ONLINE · 9 PLATFORM
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3
+          className="text-[#f5f5f5] mb-1 leading-none"
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: 900,
+            fontSize: "clamp(2rem, 6vw, 4rem)",
+            letterSpacing: "-0.02em",
+          }}
+        >
+          DON&apos;T F**K WITH LIROY
+        </h3>
+
+        {/* Meta */}
+        <p
+          className="text-[#555] text-sm mb-8 tracking-wide"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 500, letterSpacing: "0.06em" }}
+        >
+          2025 &nbsp;&middot;&nbsp; reż. Małgorzata Kowalczyk &nbsp;&middot;&nbsp; Premiera kinowa: 21 marca 2025
+        </p>
+
+        {/* Description */}
+        <p
+          className="text-[#999] text-base leading-relaxed mb-8 max-w-2xl"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 500, letterSpacing: "0.03em" }}
+        >
+          Szczera i osobista spowiedź pioniera polskiego hip-hopu.
+          Nie tylko raper &mdash; trudny dzieciak z Kielc, poseł ze swoją misją,
+          kochający ojciec.
+        </p>
+
+        {/* Ice-T quote */}
+        <div className="border-l-2 border-[#ca8a04] pl-6">
+          <blockquote
+            className="text-[#f5f5f5] italic mb-2"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 700,
+              fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
+              letterSpacing: "0.02em",
+            }}
+          >
+            &ldquo;Liroy is OG. Don&apos;t f**k with him.&rdquo;
+          </blockquote>
+          <cite
+            className="text-[#555] text-xs tracking-[0.2em] not-italic uppercase"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
+          >
+            Ice-T
+          </cite>
+        </div>
+      </div>
+    </motion.div>
   );
 }
