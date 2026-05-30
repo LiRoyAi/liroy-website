@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 
 const RELEASE_DATE = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
@@ -65,7 +66,31 @@ export default function Muzyka() {
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <section id="muzyka" ref={ref} className="bg-[#080808] py-32 px-6 md:px-16 lg:px-24">
+    <section id="muzyka" ref={ref} className="relative bg-[#080808] py-32 px-6 md:px-16 lg:px-24 overflow-hidden">
+      {/* Background photo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Image
+          src="/images/muzyka-bg.webp"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "rgba(8,8,8,0.88)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 80%, rgba(202,138,4,0.06) 0%, transparent 70%)",
+          }}
+        />
+      </div>
+      {/* All content above background */}
+      <div className="relative z-10">
+
       {/* Label */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -249,6 +274,8 @@ export default function Muzyka() {
           ))}
         </div>
       </motion.div>
+
+      </div>{/* end z-10 wrapper */}
     </section>
   );
 }
