@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Bebas_Neue } from "next/font/google";
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bebas-neue",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "LIROY — Legenda. Bunt. Przyszłość.",
@@ -15,8 +23,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className="h-full">
-      <body className="min-h-full bg-[#080808]">{children}</body>
+    <html lang="pl" className={`h-full ${bebasNeue.variable}`}>
+      <body className="min-h-full bg-black">{children}</body>
     </html>
   );
 }

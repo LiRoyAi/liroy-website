@@ -1,27 +1,21 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Historia from "@/components/Historia";
-import Dyskografia from "@/components/Dyskografia";
-import Muzyka from "@/components/Muzyka";
-import Sygnal from "@/components/Sygnal";
-import DropRoom from "@/components/DropRoom";
-import Sklep from "@/components/Sklep";
-import LiroyTV from "@/components/LiroyTV";
-import Kontakt from "@/components/Kontakt";
+import NewNavbar from "@/components/NewNavbar";
+import ChapterHero from "@/components/ChapterHero";
+import ChapterKielce from "@/components/ChapterKielce";
+import ChapterScena from "@/components/ChapterScena";
+import ChapterMuzyka from "@/components/ChapterMuzyka";
+import ChapterDrop from "@/components/ChapterDrop";
+import ChapterKontakt from "@/components/ChapterKontakt";
 
 export default function Home() {
   return (
-    <main className="bg-[#080808]">
-      <Navbar />
-      <Hero />
-      <Historia />
-      <Dyskografia />
-      <Muzyka />
-      <Sygnal />
-      <DropRoom />
-      <Sklep />
-      <LiroyTV />
-      <Kontakt />
+    <main className="bg-black">
+      <NewNavbar />
+      <ChapterHero />
+      <ChapterKielce />
+      <ChapterScena />
+      <ChapterMuzyka />
+      <ChapterDrop />
+      <ChapterKontakt />
     </main>
   );
 }
