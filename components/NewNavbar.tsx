@@ -12,6 +12,10 @@ const NAV_ITEMS = [
   { label: "KONTAKT", href: "#kontakt" },
 ];
 
+const EXTERNAL_LINKS = [
+  { label: "LIROY", href: "/liroy" },
+];
+
 export default function NewNavbar() {
   const [visible, setVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -73,6 +77,16 @@ export default function NewNavbar() {
                   href={item.href}
                   onClick={(e) => handleNav(e, item.href)}
                   className="text-[10px] font-semibold tracking-[0.25em] text-white/50 hover:text-[#C9A84C] transition-colors duration-200 cursor-pointer"
+                >
+                  {item.label}
+                </a>
+              ))}
+              <div className="w-px h-4 bg-white/10" />
+              {EXTERNAL_LINKS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-[10px] font-semibold tracking-[0.25em] text-[#C9A84C]/70 hover:text-[#C9A84C] transition-colors duration-200"
                 >
                   {item.label}
                 </a>
