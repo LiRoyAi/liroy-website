@@ -25,12 +25,16 @@ const SESJE_ITEMS: Array<
   { type: "yt", id: "JlnJkzwyrsQ", label: "Backstage #2" },
   { type: "yt", id: "jlsYDbZnnmo", label: "Backstage #3" },
   { type: "local", src: "/video/LIROY & ICE-T INTRO.mov", label: "LIROY & ICE-T — Intro" },
-  { type: "local", src: "/video/Moja Autobiografia.mov", label: "Moja Autobiografia" },
-  { type: "local", src: "/video/OLDSCHOOLE.mov", label: "OLDSCHOOLE" },
+  { type: "yt", id: "nZ4h-1nihHw", label: "Moja Autobiografia VIDEO" },
   { type: "local", src: "/video/Sesja - My Robimy To Tak! (id).mov", label: "My Robimy To Tak — Sesja" },
   { type: "local", src: "/video/baza zbożowa płyty pamiątki etc.mp4", label: "Baza zbożowa — za kulisami" },
   { type: "local", src: "/video/Ujęcie w Porshe z Marią.mp4", label: "Porsche" },
   { type: "local", src: "/video/ferrari 3.mov", label: "Ferrari" },
+];
+
+const HISTORIA_YT = [
+  { id: "LNTA_jN8Jcw", label: "Pierwszy Występ w TV — Lalamido 1993" },
+  { id: "OeOhjjz4Vwg", label: "Platynowa Płyta — PKiN 1995" },
 ];
 
 const DRONY_LOCAL = [
@@ -41,6 +45,7 @@ const DRONY_LOCAL = [
 const TABS = [
   { id: "teledyski", label: "Teledyski" },
   { id: "sesje", label: "Sesje / Backstage" },
+  { id: "historia", label: "Historia" },
   { id: "drony", label: "Drony / Kielce" },
 ];
 
@@ -109,6 +114,11 @@ export default function LiroyTVSection() {
                 <LazyVideoCard key={i} src={item.src} label={item.label} />
               )
             )}
+
+          {activeTab === "historia" &&
+            HISTORIA_YT.map((v) => (
+              <YouTubeEmbed key={v.id} videoId={v.id} label={v.label} />
+            ))}
 
           {activeTab === "drony" &&
             DRONY_LOCAL.map((v) => (
