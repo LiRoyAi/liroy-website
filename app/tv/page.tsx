@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import VideoGrid, { type VideoItem } from "@/components/VideoGrid";
+import YouTubeCurated from "@/components/YouTubeCurated";
 
 export const metadata: Metadata = {
   title: "LIROY TV — 24/7 Muzyka. Kultura. Bunt.",
@@ -166,7 +167,10 @@ export default async function TVPage() {
           </p>
         </div>
 
-        {/* Player always renders — embed works regardless of API */}
+        {/* Curated YouTube embeds — always available, no API needed */}
+        <YouTubeCurated />
+
+        {/* Playlist player — powered by YouTube API */}
         <VideoGrid videos={videos} />
 
         {/* API error — visible only in dev/staging, helps diagnose */}

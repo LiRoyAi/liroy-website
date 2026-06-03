@@ -2,29 +2,15 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import YouTubeEmbed from "./YouTubeEmbed";
 import LazyVideoCard from "./LazyVideoCard";
 
+// 3 YouTube backstage IDs + 1 lokalny plik (LIROY & ICE-T INTRO.mov — 202MB via LFS)
 const CLIPS = [
-  {
-    src: "/video/Liroy przygotwania wbija na scenę + wita się z Djami.mp4",
-    label: "Wejście na scenę",
-    sublabel: "Spotkanie z DJ-ami",
-  },
-  {
-    src: "/video/Liroy pod sceną + fani + koncert USA.mp4",
-    label: "Pod sceną / USA",
-    sublabel: "Fani i koncert",
-  },
-  {
-    src: "/video/przed koncertem ujęcia + wejście na scenę.mp4",
-    label: "Przed koncertem",
-    sublabel: "Przygotowania",
-  },
-  {
-    src: "/video/scena + przygotowania.mp4",
-    label: "Scena",
-    sublabel: "Behind the scenes",
-  },
+  { type: "yt" as const, id: "bPWxSD8hPXA", label: "Wejście na scenę", sublabel: "Spotkanie z DJ-ami" },
+  { type: "yt" as const, id: "JlnJkzwyrsQ", label: "Pod sceną / USA", sublabel: "Fani i koncert" },
+  { type: "yt" as const, id: "jlsYDbZnnmo", label: "Przygotowania", sublabel: "Behind the scenes" },
+  { type: "local" as const, src: "/video/LIROY & ICE-T INTRO.mov", label: "LIROY & ICE-T — Intro", sublabel: "Legenda spotyka legendę" },
 ];
 
 export default function LiroyBackstage() {
@@ -60,23 +46,46 @@ export default function LiroyBackstage() {
           style={{ x, width: `${CLIPS.length * 80}vw` }}
         >
           {CLIPS.map((clip, i) => (
-            <div key={i} className="relative w-[80vw] h-full flex-shrink-0 px-3 pb-12">
-              <LazyVideoCard
-                src={clip.src}
-                label={clip.label}
-                sublabel={clip.sublabel}
-                className="h-full w-full"
-                aspectRatio=""
-              />
+            <div key={i} className="relative w-[80vw] h-full flex-shrink-0 px-3 pb-12 flex items-center">
+              {clip.type === "yt" ? (
+                <YouTubeEmbed
+                  videoId={clip.id}
+                  label={clip.label}
+                  sublabel={clip.sublabel}
+                  className="w-full"
+                />
+              ) : (
+                <LazyVideoCard
+                  src={clip.src}
+                  label={clip.label}
+                  sublabel={clip.sublabel}
+                  className="w-full"
+                  aspectRatio="aspect-video"
+                />
+              )}
             </div>
           ))}
         </motion.div>
 
         {/* Mobile vertical */}
         <div className="md:hidden pt-36 px-4 space-y-4 overflow-y-auto h-full pb-8">
-          {CLIPS.map((clip, i) => (
-            <LazyVideoCard key={i} src={clip.src} label={clip.label} sublabel={clip.sublabel} />
-          ))}
+          {CLIPS.map((clip, i) =>
+            clip.type === "yt" ? (
+              <YouTubeEmbed
+                key={i}
+                videoId={clip.id}
+                label={clip.label}
+                sublabel={clip.sublabel}
+              />
+            ) : (
+              <LazyVideoCard
+                key={i}
+                src={clip.src}
+                label={clip.label}
+                sublabel={clip.sublabel}
+              />
+            )
+          )}
         </div>
       </div>
     </section>
