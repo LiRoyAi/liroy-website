@@ -101,38 +101,27 @@ export default function S4_MuzykaL7() {
             </motion.div>
           </div>
 
-          {/* Right: Album art with 3D CSS perspective */}
+          {/* Right: Album cover */}
           <motion.div
-            initial={{ opacity: 0, x: 40, rotateY: -15 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.2 }}
             viewport={{ once: true }}
-            className="relative"
-            style={{ perspective: "800px" }}
+            className="w-full md:w-[500px] lg:w-[580px] flex-shrink-0"
           >
             <motion.div
-              whileHover={{ rotateY: -8, rotateX: 4, scale: 1.03 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.4 }}
-              style={{ transformStyle: "preserve-3d" }}
-              className="relative w-64 h-64 md:w-80 md:h-80 cursor-pointer"
+              className="relative rounded-lg overflow-hidden shadow-2xl ring-1 ring-[#C9A84C]/20 shadow-[0_0_60px_rgba(201,168,76,0.12)]"
             >
               <Image
                 src="/images/L7.avif"
                 alt="L7 — LIROY 2025"
                 width={2400}
                 height={1260}
-                className="w-full h-full object-cover rounded-lg shadow-2xl"
+                className="w-full h-auto"
+                priority
               />
-              {/* Shine effect */}
-              <div
-                className="absolute inset-0 rounded-lg pointer-events-none"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%)",
-                }}
-              />
-              {/* Gold border glow */}
-              <div className="absolute inset-0 rounded-lg ring-1 ring-[#C9A84C]/20 shadow-[0_0_60px_rgba(201,168,76,0.15)]" />
             </motion.div>
           </motion.div>
         </div>
