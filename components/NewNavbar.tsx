@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const NAV_ITEMS = [
-  { label: "HISTORIA", href: "#historia" },
-  { label: "SCENA", href: "#scena" },
+  { label: "BIOGRAFIA", href: "#historia" },
+  { label: "DYSKOGRAFIA", href: "#dyskografia" },
   { label: "MUZYKA", href: "#muzyka" },
+  { label: "SCENA", href: "#scena" },
   { label: "DROP", href: "#drop" },
-  { label: "KONTAKT", href: "#kontakt" },
+  { label: "TV", href: "#tv-teaser" },
 ];
 
 const EXTERNAL_LINKS = [
