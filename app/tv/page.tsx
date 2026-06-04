@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import VideoGrid, { type VideoItem } from "@/components/VideoGrid";
-import YouTubeCurated from "@/components/YouTubeCurated";
+import type { VideoItem } from "@/components/VideoGrid";
+import TVTabs from "./TVTabs";
 
 export const metadata: Metadata = {
   title: "LIROY TV — 24/7 Muzyka. Kultura. Bunt.",
@@ -167,28 +167,8 @@ export default async function TVPage() {
           </p>
         </div>
 
-        {/* Curated YouTube embeds — always available, no API needed */}
-        <YouTubeCurated />
-
-        {/* Playlist player — powered by YouTube API */}
-        <VideoGrid videos={videos} />
-
-        {/* API error — visible only in dev/staging, helps diagnose */}
-        {apiError && (
-          <div className="mt-8 w-full rounded-xl border border-red-900/40 bg-red-950/20 p-4">
-            <p
-              className="text-red-500 text-xs tracking-widest uppercase mb-2"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}
-            >
-              Nie można załadować listy filmów
-            </p>
-            <p
-              className="text-red-900 text-[11px] font-mono break-all"
-            >
-              {apiError}
-            </p>
-          </div>
-        )}
+        {/* Tabs: Playlist + Sampler */}
+        <TVTabs videos={videos} apiError={apiError} />
       </div>
     </div>
   );
