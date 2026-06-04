@@ -26,8 +26,6 @@ const SESJE_ITEMS: Array<
   { type: "yt", id: "jlsYDbZnnmo", label: "Backstage #3" },
   { type: "local", src: "/video/LIROY & ICE-T INTRO.mov", label: "LIROY & ICE-T — Intro" },
   { type: "yt", id: "nZ4h-1nihHw", label: "Moja Autobiografia VIDEO" },
-  { type: "local", src: "/video/Sesja - My Robimy To Tak! (id).mov", label: "My Robimy To Tak — Sesja" },
-  { type: "local", src: "/video/baza zbożowa płyty pamiątki etc.mp4", label: "Baza zbożowa — za kulisami" },
   { type: "local", src: "/video/Ujęcie w Porshe z Marią.mp4", label: "Porsche" },
   { type: "local", src: "/video/ferrari 3.mov", label: "Ferrari" },
 ];
