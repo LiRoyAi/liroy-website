@@ -16,7 +16,7 @@ export default function ChapterHero() {
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        poster="/images/l7-logo.png"
+        poster="/images/L7_LP_Front_Cover.png"
       >
         <source src="/video/Anim Logo2.mp4" type="video/mp4" />
       </video>
@@ -34,10 +34,10 @@ export default function ChapterHero() {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <Image
-            src="/images/l7-logo.png"
+            src="/images/L7_LP_Front_Cover.png"
             alt="L7"
-            width={280}
-            height={280}
+            width={1600}
+            height={1600}
             priority
             className="w-[min(40vw,280px)] h-auto drop-shadow-2xl"
           />

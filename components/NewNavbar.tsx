@@ -58,10 +58,10 @@ export default function NewNavbar() {
               className="flex items-center gap-3"
             >
               <Image
-                src="/images/l7-logo.png"
+                src="/images/L7_LP_Front_Cover.png"
                 alt="LIROY"
-                width={36}
-                height={36}
+                width={1600}
+                height={1600}
                 className="w-9 h-9 object-contain"
               />
               <span

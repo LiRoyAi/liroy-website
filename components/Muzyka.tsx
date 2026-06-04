@@ -148,12 +148,11 @@ export default function Muzyka() {
             }}
           >
             <Image
-              src="/images/l7-logo.png"
+              src="/images/L7_LP_Front_Cover.png"
               alt="L7"
-              width={1247}
-              height={944}
+              width={1600}
+              height={1600}
               className="w-full h-auto object-contain"
-              style={{ mixBlendMode: "screen" }}
               priority
             />
           </div>
@@ -167,12 +166,11 @@ export default function Muzyka() {
             </div>
             <div className="mb-1">
               <Image
-                src="/images/l7-logo.png"
+                src="/images/L7_LP_Front_Cover.png"
                 alt="L7"
-                width={1247}
-                height={944}
+                width={1600}
+                height={1600}
                 className="object-contain h-16 sm:h-20 md:h-24 w-auto"
-                style={{ mixBlendMode: "screen" }}
               />
             </div>
             <p className="text-[#888] text-sm mb-8">LIROY &amp; DJ HWR &middot; 2026</p>

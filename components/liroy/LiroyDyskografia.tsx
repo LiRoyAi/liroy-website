@@ -10,7 +10,7 @@ const ALBUMS = [
   { rok: "1999", tytul: "Dzień Szaka-L'a", uwagi: "Fryderyk 2000", img: null },
   { rok: "2006", tytul: "L", uwagi: "Fryderyk 1998", img: null },
   { rok: "2008", tytul: "L Niño vol. 1", uwagi: "", img: "/images/l-nino.jpg" },
-  { rok: "2025", tytul: "L7", uwagi: "Nowy rozdział", img: "/images/l7-logo.png", featured: true },
+  { rok: "2025", tytul: "L7", uwagi: "Nowy rozdział", img: "/images/L7_LP_Front_Cover.png", featured: true },
 ];
 
 const KOMPILACJE = [

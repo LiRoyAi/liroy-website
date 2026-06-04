@@ -5,11 +5,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 const TIMELINE = [
-  { year: "1975", text: "Urodzony w Kielcach" },
-  { year: "1993", text: "Pierwszy teledysk — Lalamido" },
-  { year: "1995", text: "Alboom — pierwsza platyna hip-hopu w Polsce" },
-  { year: "2015", text: "Poseł na Sejm RP (IX kadencja)" },
-  { year: "2025", text: "Album L7 — powrót legendy" },
+  { year: "1971", text: "Urodziny" },
+  { year: "1982", text: "Pierwszy nagrany utwór Rap" },
+  { year: "1992", text: 'Płyta "PM Cool Lee"' },
+  { year: "1995", text: 'Debiutancki solowy "ALBOOM"' },
 ];
 
 export default function S2_Biografia() {

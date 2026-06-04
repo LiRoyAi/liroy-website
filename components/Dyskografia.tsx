@@ -59,12 +59,11 @@ function AlbumRow({
 
         <div className="flex-1 flex items-center gap-3 flex-wrap">
           <Image
-            src="/images/l7-logo.png"
+            src="/images/L7_LP_Front_Cover.png"
             alt="L7"
-            width={1247}
-            height={944}
+            width={1600}
+            height={1600}
             className="object-contain flex-shrink-0 h-8 w-auto"
-            style={{ mixBlendMode: "screen" }}
           />
           {album.note && (
             <span
