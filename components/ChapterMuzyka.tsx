@@ -8,7 +8,7 @@ const ALBUMS = [
   {
     title: "L7",
     year: "2025",
-    src: "/images/L7_LP_Front_Cover.png",
+    src: "/images/L7.avif",
     bg: "#0a0a0a",
   },
   {

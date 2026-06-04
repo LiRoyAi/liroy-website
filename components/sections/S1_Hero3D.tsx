@@ -11,8 +11,10 @@ const HeroCanvas = dynamic(() => import("@/components/3d/HeroCanvas"), {
       {/* Static poster while 3D loads */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/L7_LP_Front_Cover.png"
+        src="/images/L7.avif"
         alt="LIROY"
+        width="2400"
+        height="1260"
         className="w-[min(40vw,300px)] h-auto opacity-50"
       />
     </div>

@@ -117,10 +117,10 @@ export default function S4_MuzykaL7() {
               className="relative w-64 h-64 md:w-80 md:h-80 cursor-pointer"
             >
               <Image
-                src="/images/L7_LP_Front_Cover.png"
+                src="/images/L7.avif"
                 alt="L7 — LIROY 2025"
-                width={1600}
-                height={1600}
+                width={2400}
+                height={1260}
                 className="w-full h-full object-cover rounded-lg shadow-2xl"
               />
               {/* Shine effect */}
