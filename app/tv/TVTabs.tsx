@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import VideoGrid, { type VideoItem } from "@/components/VideoGrid";
 import YouTubeCurated from "@/components/YouTubeCurated";
 
-const SamplerPad = dynamic(() => import("@/components/sampler/SamplerPad"), {
+const SamplerScene3D = dynamic(() => import("@/components/sampler/SamplerScene3D"), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-64 border border-[#C9A84C]/10 rounded-xl">
@@ -89,7 +89,7 @@ export default function TVTabs({
         </>
       )}
 
-      {active === "sampler" && <SamplerPad />}
+      {active === "sampler" && <SamplerScene3D />}
     </>
   );
 }
