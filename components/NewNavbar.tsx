@@ -58,10 +58,10 @@ export default function NewNavbar() {
               className="flex items-center gap-3"
             >
               <Image
-                src="/images/L7.avif"
+                src="/images/tarcza.png"
                 alt="LIROY"
-                width={2400}
-                height={1260}
+                width={3162}
+                height={3162}
                 className="w-9 h-9 object-contain"
               />
               <span

@@ -148,10 +148,10 @@ export default function Muzyka() {
             }}
           >
             <Image
-              src="/images/L7.avif"
+              src="/images/L7_LP_Front_Cover.png"
               alt="L7"
-              width={2400}
-              height={1260}
+              width={1600}
+              height={1600}
               className="w-full h-auto object-contain"
               priority
             />
@@ -166,10 +166,10 @@ export default function Muzyka() {
             </div>
             <div className="mb-1">
               <Image
-                src="/images/L7.avif"
+                src="/images/L7_LP_Front_Cover.png"
                 alt="L7"
-                width={2400}
-                height={1260}
+                width={1600}
+                height={1600}
                 className="object-contain h-16 sm:h-20 md:h-24 w-auto"
               />
             </div>

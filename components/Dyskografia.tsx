@@ -59,10 +59,10 @@ function AlbumRow({
 
         <div className="flex-1 flex items-center gap-3 flex-wrap">
           <Image
-            src="/images/L7.avif"
+            src="/images/L7_LP_Front_Cover.png"
             alt="L7"
-            width={2400}
-            height={1260}
+            width={1600}
+            height={1600}
             className="object-contain flex-shrink-0 h-8 w-auto"
           />
           {album.note && (

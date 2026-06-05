@@ -37,10 +37,10 @@ export default function LiroyPageNav() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
           <Image
-            src="/images/L7.avif"
+            src="/images/tarcza.png"
             alt="LIROY"
-            width={2400}
-            height={1260}
+            width={3162}
+            height={3162}
             className="w-8 h-8 object-contain"
           />
           <span className="font-bebas text-lg tracking-[0.15em] text-[#C9A84C] group-hover:text-white transition-colors">

@@ -93,7 +93,7 @@ const ALBUMS = [
     scale: 0.85,
   },
   {
-    src: "/images/L7.avif",
+    src: "/images/L7_LP_Front_Cover.png",
     position: [0, 0, 0] as [number, number, number],
     rotY: 0,
     speed: 1.0,
