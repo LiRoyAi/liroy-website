@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const FEATURED_YT = [
-  { id: "3VvmcLFxro0", label: "Teledysk #1" },
-  { id: "B3-7VM_UNFg", label: "Czas na Boom Bap!" },
-  { id: "j2uW8lTyL0Y", label: "Scyzoryk / L Niño" },
+  { id: "fkyDHiXxXZI", label: "Skaczcie do góry (1997)" },
+  { id: "nZ4h-1nihHw", label: "Moja Autobiografia VIDEO" },
+  { id: "o7XS3H9_n24", label: "Scyzoryk EP — XXXI Rocznica" },
 ];
 
 function YTThumb({ id, label }: { id: string; label: string }) {

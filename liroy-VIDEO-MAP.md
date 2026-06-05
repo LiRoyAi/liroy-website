@@ -6,12 +6,51 @@ Rejestr filmów osadzonych na stronie oraz plików wideo w `public/video/`.
 
 ## 🎬 YouTube — osadzone embedy (youtube-nocookie)
 
-| Video ID | Tytuł | Rok | Kanał | Gdzie osadzone |
-|---|---|---|---|---|
-| `fkyDHiXxXZI` | Liroy — Skaczcie do góry (oficjalny teledysk) | 1997 | LiROY POLSKA | Strona główna — blok rocznicowy albumu «L» (29 lat), `L1997_Anniversary.tsx` |
-| `c9rBCq5ubKY` | *(L7 — embargoed)* | 2025 | — | **EMBARGO — nie osadzać** |
+### ✅ AKTYWNE
 
-> `c9rBCq5ubKY` — objęty embargiem, nie używać w żadnym embedzie na stronie.
+| Video ID | Tytuł (YouTube) | Gdzie osadzone |
+|---|---|---|
+| `fkyDHiXxXZI` | LIROY - SKACZCIE DO GÓRY (1997) | Strona główna — blok rocznicowy «L» (`L1997_Anniversary.tsx`) + /tv TELEDYSKI |
+| `LNTA_jN8Jcw` | Liroy — Pierwszy występ w Telewizji (Lalamido 1993) | /tv TELEDYSKI (`YouTubeCurated.tsx`) |
+| `OeOhjjz4Vwg` | LiROY — PKiN wręczenie platynowej płyty 1995 | /tv TELEDYSKI (`YouTubeCurated.tsx`) |
+| `nZ4h-1nihHw` | Liroy — Moja Autobiografia VIDEO | /tv TELEDYSKI + S7_TVTeaser (strona główna) |
+| `o7XS3H9_n24` | LiROY — XXXI ROCZNICA WYDANIA PŁYTY "SCYZORYK" EP | /tv TELEDYSKI + S7_TVTeaser (strona główna) |
+| `Q7ym_R8QnAU` | LIROY & DJ HWR – ZŁOŚĆ feat. PiH, KABE [Official Teaser] | /tv TELEDYSKI (`YouTubeCurated.tsx`) |
+| `kuGisaXOKOE` | Koncert Kielce | /tv KONCERTY (`YouTubeCurated.tsx`) |
+| `wdQep96v0zA` | Koncert Kielce | /tv KONCERTY (`YouTubeCurated.tsx`) |
+| `na8YNKJFFKU` | Koncert Kielce | /tv KONCERTY (`YouTubeCurated.tsx`) |
+| `JeD8dbjpk7I` | Koncert Kielce | /tv KONCERTY (`YouTubeCurated.tsx`) |
+| `DM2QRqt8xqQ` | Koncert Kielce | /tv BACKSTAGE (`YouTubeCurated.tsx`) |
+| `t2oz61xBkrs` | Redman koncert Warszawa Progresja | /tv BACKSTAGE (`YouTubeCurated.tsx`) |
+| `SrtXMa02rfk` | Redman koncert Warszawa Progresja | /tv BACKSTAGE (`YouTubeCurated.tsx`) |
+
+### 🚫 EMBARGO
+
+| Video ID | Powód |
+|---|---|
+| `c9rBCq5ubKY` | **EMBARGO — nie osadzać** (L7, 2025) |
+
+> Wszystkie embedy z kanału LiROY POLSKA (UCc1B3_xRUtFtC2SMQH5-bBg), youtube-nocookie.
+
+### ❌ USUNIĘTE (stare martwe ID-y — zastąpione 06.2026)
+
+Wszystkie poniższe zwracały HTTP 404 w YouTube oEmbed API — filmy usunięte przez wrzucających.
+
+| Stare ID | Był label | Sekcja |
+|---|---|---|
+| `3VvmcLFxro0` | Teledysk #1 | TELEDYSKI + S7_TVTeaser |
+| `PH_5YoosihA` | Teledysk #2 | TELEDYSKI |
+| `B3-7VM_UNFg` | Czas na Boom Bap! | TELEDYSKI + S7_TVTeaser |
+| `UWP4h8ZfkZA` | Kampania | TELEDYSKI |
+| `AsdPs3_ckOc` | Klasyk | TELEDYSKI |
+| `s5AjCMEWCTQ` | L7 — Trailer | TELEDYSKI |
+| `j2uW8lTyL0Y` | Scyzoryk / L Niño | KONCERTY + S7_TVTeaser |
+| `URKfbeoEO4M` | Autobiografia | KONCERTY |
+| `V1bybztTLgM` | Impreza / Śleboda | KONCERTY |
+| `UNPQsjl042c` | Twoja Córka | KONCERTY |
+| `bPWxSD8hPXA` | Backstage #1 | BACKSTAGE |
+| `JlnJkzwyrsQ` | Backstage #2 | BACKSTAGE |
+| `jlsYDbZnnmo` | Backstage #3 | BACKSTAGE |
 
 ---
 

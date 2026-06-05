@@ -10,25 +10,25 @@ interface VideoEntry {
 }
 
 const TELEDYSKI: VideoEntry[] = [
-  { id: "3VvmcLFxro0", label: "Teledysk #1" },
-  { id: "PH_5YoosihA", label: "Teledysk #2" },
-  { id: "B3-7VM_UNFg", label: "Czas na Boom Bap!" },
-  { id: "UWP4h8ZfkZA", label: "Kampania" },
-  { id: "AsdPs3_ckOc", label: "Klasyk" },
-  { id: "s5AjCMEWCTQ", label: "L7 — Trailer" },
+  { id: "fkyDHiXxXZI", label: "Skaczcie do góry (1997)" },
+  { id: "LNTA_jN8Jcw", label: "Lalamido 1993 — debiut TV" },
+  { id: "OeOhjjz4Vwg", label: "PKiN — Platynowa płyta 1995" },
+  { id: "nZ4h-1nihHw", label: "Moja Autobiografia VIDEO" },
+  { id: "o7XS3H9_n24", label: "Scyzoryk EP — XXXI Rocznica" },
+  { id: "Q7ym_R8QnAU", label: "L7: ZŁOŚĆ feat. PiH, KABE" },
 ];
 
 const KONCERTY: VideoEntry[] = [
-  { id: "j2uW8lTyL0Y", label: "Scyzoryk / L Niño", sublabel: "Trasa 30 lat Alboom" },
-  { id: "URKfbeoEO4M", label: "Autobiografia", sublabel: "Trasa 30 lat Alboom" },
-  { id: "V1bybztTLgM", label: "Impreza / Śleboda", sublabel: "Trasa 30 lat Alboom" },
-  { id: "UNPQsjl042c", label: "Twoja Córka", sublabel: "Trasa 30 lat Alboom" },
+  { id: "kuGisaXOKOE", label: "Koncert Kielce (1)", sublabel: "LiROY POLSKA" },
+  { id: "wdQep96v0zA", label: "Koncert Kielce (2)", sublabel: "LiROY POLSKA" },
+  { id: "na8YNKJFFKU", label: "Koncert Kielce (3)", sublabel: "LiROY POLSKA" },
+  { id: "JeD8dbjpk7I", label: "Koncert Kielce (4)", sublabel: "LiROY POLSKA" },
 ];
 
 const BACKSTAGE: VideoEntry[] = [
-  { id: "bPWxSD8hPXA", label: "Backstage #1" },
-  { id: "JlnJkzwyrsQ", label: "Backstage #2" },
-  { id: "jlsYDbZnnmo", label: "Backstage #3" },
+  { id: "DM2QRqt8xqQ", label: "Koncert Kielce — backstage", sublabel: "LiROY POLSKA" },
+  { id: "t2oz61xBkrs", label: "Redman / Warszawa Progresja (1)", sublabel: "LiROY POLSKA" },
+  { id: "SrtXMa02rfk", label: "Redman / Warszawa Progresja (2)", sublabel: "LiROY POLSKA" },
 ];
 
 const TABS = [
