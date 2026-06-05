@@ -114,7 +114,7 @@ export default function S4_MuzykaL7() {
               transition={{ duration: 0.4 }}
               className="relative rounded-lg overflow-hidden shadow-2xl ring-1 ring-[#C9A84C]/20 shadow-[0_0_60px_rgba(201,168,76,0.12)]"
             >
-              <Image src="/images/L7.avif" width={2400} height={1260} alt="L7" />
+              <Image src="/images/L7_LP_Front_Cover.png" width={1600} height={1600} alt="L7" />
             </motion.div>
           </motion.div>
         </div>
