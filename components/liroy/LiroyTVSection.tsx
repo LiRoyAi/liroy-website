@@ -37,7 +37,7 @@ const HISTORIA_YT = [
 
 const DRONY_LOCAL = [
   { src: "/video/dron Kielce jazda autem w nocy.mp4", label: "Kielce — Nocna jazda" },
-  { src: "/video/dron ulica z góry kilka sek.mp4", label: "Kielce z góry" },
+  { src: "/video/dron-ulica-gory.mp4", label: "Kielce z góry" },
 ];
 
 const TABS = [

@@ -12,7 +12,7 @@ const MicCanvas = dynamic(() => import("@/components/3d/MicCanvas"), {
 
 const SLIDES = [
   { src: "/images/Gdynia 30L-11.jpg", city: "GDYNIA" },
-  { src: "/images/Lodź 30L-37.jpg", city: "ŁÓDŹ" },
+  { src: "/images/lodz-30l-37.jpg", city: "ŁÓDŹ" },
   { src: "/images/Szczecin 30L-55.jpg", city: "SZCZECIN" },
   { src: "/images/Kielce-55.jpg", city: "KIELCE" },
   { src: "/images/L7 (22).jpg", city: "" },

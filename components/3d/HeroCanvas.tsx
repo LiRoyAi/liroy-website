@@ -1,34 +1,30 @@
 "use client";
 
-import { useRef, useState, useMemo, useEffect } from "react";
+import { useRef, useEffect, Component, ReactNode, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { useSceneStore } from "@/store/scene";
 
-// ── VideoPlane ──────────────────────────────────────────────────────────────
-function VideoPlane() {
+// ── Error boundary — isolates WebGL failures from the rest of the page ────────
+interface EBState { hasError: boolean }
+class HeroErrorBoundary extends Component<{ children: ReactNode }, EBState> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
+}
+
+// ── Shield mesh (static tarcza.png texture) ───────────────────────────────────
+function ShieldPlane() {
   const meshRef = useRef<THREE.Mesh>(null!);
   const { mouseX, mouseY, heroProgress } = useSceneStore();
-
-  const [video] = useState<HTMLVideoElement | null>(() => {
-    if (typeof document === "undefined") return null;
-    const v = document.createElement("video");
-    v.src = "/video/Anim Logo2.mp4";
-    v.crossOrigin = "anonymous";
-    v.loop = true;
-    v.muted = true;
-    v.playsInline = true;
-    v.autoplay = true;
-    v.play().catch(() => {});
-    return v;
-  });
-
-  const texture = useMemo(() => {
-    if (!video) return null;
-    const t = new THREE.VideoTexture(video);
-    t.colorSpace = THREE.SRGBColorSpace;
-    return t;
-  }, [video]);
+  const texture = useTexture("/images/tarcza.png");
 
   useFrame((_, delta) => {
     if (!meshRef.current) return;
@@ -44,7 +40,7 @@ function VideoPlane() {
     meshRef.current.rotation.y +=
       (targetRY - meshRef.current.rotation.y) * 0.04;
 
-    // Scroll: scale up + move towards camera ("wchodzenie w głąb")
+    // Scroll: scale up + move towards camera
     const targetScale = 1 + heroProgress * 0.8;
     const currentScale = meshRef.current.scale.x;
     meshRef.current.scale.setScalar(
@@ -52,8 +48,6 @@ function VideoPlane() {
     );
     meshRef.current.position.z = heroProgress * 1.5;
   });
-
-  if (!texture) return null;
 
   return (
     <mesh ref={meshRef}>
@@ -93,16 +87,20 @@ export default function HeroCanvas({ className = "" }: { className?: string }) {
   }, [setMouse, setScroll]);
 
   return (
-    <Canvas
-      className={className}
-      camera={{ position: [0, 0, 5], fov: 55 }}
-      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-      dpr={[1, Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 2)]}
-    >
-      <ambientLight intensity={0.6} />
-      <pointLight position={[4, 6, 4]} intensity={1.2} color="#ffffff" />
-      <pointLight position={[-4, -2, 2]} intensity={0.4} color="#C9A84C" />
-      <VideoPlane />
-    </Canvas>
+    <HeroErrorBoundary>
+      <Canvas
+        className={className}
+        camera={{ position: [0, 0, 5], fov: 55 }}
+        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+        dpr={[1, Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 2)]}
+      >
+        <ambientLight intensity={0.6} />
+        <pointLight position={[4, 6, 4]} intensity={1.2} color="#ffffff" />
+        <pointLight position={[-4, -2, 2]} intensity={0.4} color="#C9A84C" />
+        <Suspense fallback={null}>
+          <ShieldPlane />
+        </Suspense>
+      </Canvas>
+    </HeroErrorBoundary>
   );
 }
