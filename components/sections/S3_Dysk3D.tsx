@@ -10,6 +10,7 @@ const VinylCanvas = dynamic(() => import("@/components/3d/VinylCanvas"), {
 });
 
 const ALBUMS = [
+  { title: "«L»", year: "1997", desc: "Złoty Fryderyk" },
   { title: "GRANDPAPARAPA", year: "2022", desc: "Nostalgic boom bap" },
   { title: "L7", year: "2025", desc: "Powrót legendy" },
   { title: "L NIÑO", year: "2023", desc: "Dojrzały hip-hop" },

@@ -1,9 +1,23 @@
 "use client";
 
-import { useRef, Suspense } from "react";
+import { useRef, Suspense, Component, ReactNode } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture, Environment } from "@react-three/drei";
 import * as THREE from "three";
+
+// ── Error boundary — stops a failed texture from crashing the whole page ──────
+interface EBState { hasError: boolean }
+class VinylErrorBoundary extends Component<{ children: ReactNode }, EBState> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
+}
 
 // ── Single vinyl disc ──────────────────────────────────────────────────────
 interface VinylProps {
@@ -86,22 +100,29 @@ function Vinyl({ albumSrc, position, rotationY, speed, scale = 1 }: VinylProps) 
 // ── Scene contents ─────────────────────────────────────────────────────────
 const ALBUMS = [
   {
+    src: "/images/L-1997-cover.jpg",
+    position: [-3.8, 0, -0.8] as [number, number, number],
+    rotY: 0.32,
+    speed: 0.55,
+    scale: 0.80,
+  },
+  {
     src: "/images/grandpaparapa.jpg",
-    position: [-2.6, 0, -0.6] as [number, number, number],
-    rotY: 0.28,
+    position: [-1.5, 0, -0.4] as [number, number, number],
+    rotY: 0.18,
     speed: 0.65,
-    scale: 0.85,
+    scale: 0.87,
   },
   {
     src: "/images/L7_LP_Front_Cover.png",
-    position: [0, 0, 0] as [number, number, number],
-    rotY: 0,
+    position: [0.7, 0, 0] as [number, number, number],
+    rotY: -0.05,
     speed: 1.0,
-    scale: 1.1,
+    scale: 1.08,
   },
   {
     src: "/images/l-nino.jpg",
-    position: [2.6, 0, -0.6] as [number, number, number],
+    position: [3.1, 0, -0.5] as [number, number, number],
     rotY: -0.28,
     speed: 0.75,
     scale: 0.85,
@@ -135,13 +156,15 @@ function VinylScene() {
 // ── VinylCanvas ──────────────────────────────────────────────────────────────
 export default function VinylCanvas({ className = "" }: { className?: string }) {
   return (
-    <Canvas
-      className={className}
-      camera={{ position: [0, 0, 5], fov: 58 }}
-      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-      dpr={[1, 1.5]}
-    >
-      <VinylScene />
-    </Canvas>
+    <VinylErrorBoundary>
+      <Canvas
+        className={className}
+        camera={{ position: [0, 0, 5], fov: 58 }}
+        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+        dpr={[1, 1.5]}
+      >
+        <VinylScene />
+      </Canvas>
+    </VinylErrorBoundary>
   );
 }
