@@ -7,16 +7,18 @@ interface Props {
   label: string;
   sublabel?: string;
   className?: string;
+  aspectRatio?: string;
+  poster?: string;
 }
 
-export default function YouTubeEmbed({ videoId, label, sublabel, className = "" }: Props) {
+export default function YouTubeEmbed({ videoId, label, sublabel, className = "", aspectRatio = "16/9", poster }: Props) {
   const [playing, setPlaying] = useState(false);
-  const thumb = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const thumb = poster ?? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
   return (
     <div
       className={`relative overflow-hidden rounded-lg border border-white/8 bg-[#0d0d0d] group ${className}`}
-      style={{ aspectRatio: "16/9" }}
+      style={{ aspectRatio }}
     >
       {playing ? (
         <iframe

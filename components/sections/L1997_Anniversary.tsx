@@ -77,6 +77,124 @@ export function L1997Ribbon() {
   );
 }
 
+// ── Spotlight (animated cover, 1:1) ──────────────────────────────────────────
+
+export function L1997Spotlight() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  if (!mounted || !anniversaryActive()) return null;
+
+  return (
+    <section
+      className="relative py-16 sm:py-20 px-6 overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(180deg, #020100 0%, #060400 60%, #020100 100%)",
+      }}
+    >
+      {/* Top gold separator */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.35) 40%, rgba(201,168,76,0.35) 60%, transparent 100%)",
+        }}
+      />
+
+      <div className="max-w-[520px] mx-auto text-center">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 mb-8">
+          <div
+            className="h-px w-8"
+            style={{ background: "rgba(201,168,76,0.3)" }}
+          />
+          <span
+            className="text-[9px] tracking-[0.45em] uppercase font-mono"
+            style={{ color: "rgba(201,168,76,0.5)" }}
+          >
+            Rocznica · 1997–2026
+          </span>
+          <div
+            className="h-px w-8"
+            style={{ background: "rgba(201,168,76,0.3)" }}
+          />
+        </div>
+
+        {/* Heading */}
+        <h2
+          className="font-bebas tracking-wider leading-none mb-2"
+          style={{
+            fontSize: "clamp(42px, 10vw, 68px)",
+            color: "#C9A84C",
+          }}
+        >
+          29 LAT ALBUMU «L»
+        </h2>
+
+        <p
+          className="text-[11px] tracking-[0.38em] uppercase font-mono mb-2"
+          style={{ color: "rgba(255,255,255,0.28)" }}
+        >
+          6 czerwca 1997 · BMG
+        </p>
+
+        <p
+          className="text-sm mb-8"
+          style={{ color: "rgba(255,255,255,0.38)" }}
+        >
+          Ożywiona okładka — w rytmie singla «Skaczcie do góry»
+        </p>
+
+        {/* 1:1 embed */}
+        <YouTubeEmbed
+          videoId="pANRU4n8SVY"
+          label="29 lat albumu «L» — ożywiona okładka"
+          sublabel="LiROY · 6.06.1997"
+          aspectRatio="1/1"
+          poster={`https://img.youtube.com/vi/pANRU4n8SVY/hqdefault.jpg`}
+        />
+
+        {/* YouTube link */}
+        <div className="mt-5">
+          <a
+            href="https://youtube.com/shorts/pANRU4n8SVY"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-mono transition-colors duration-200"
+            style={{ color: "rgba(201,168,76,0.5)" }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLAnchorElement).style.color = "#C9A84C")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLAnchorElement).style.color =
+                "rgba(201,168,76,0.5)")
+            }
+          >
+            <svg
+              className="w-3.5 h-3.5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Zobacz na YouTube
+          </a>
+        </div>
+      </div>
+
+      {/* Bottom gold separator */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.18) 50%, transparent 100%)",
+        }}
+      />
+    </section>
+  );
+}
+
 // ── Anniversary block ─────────────────────────────────────────────────────────
 
 export function L1997Block() {

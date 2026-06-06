@@ -7,7 +7,7 @@ import S5_Koncerty from "@/components/sections/S5_Koncerty";
 import S6_Drop3D from "@/components/sections/S6_Drop3D";
 import S7_TVTeaser from "@/components/sections/S7_TVTeaser";
 import S8_Kontakt from "@/components/sections/S8_Kontakt";
-import { L1997Ribbon, L1997Block } from "@/components/sections/L1997_Anniversary";
+import { L1997Ribbon, L1997Block, L1997Spotlight } from "@/components/sections/L1997_Anniversary";
 
 export default function Home() {
   return (
@@ -17,6 +17,8 @@ export default function Home() {
       <L1997Ribbon />
       {/* S1 — Hero 3D (rotating shield, mouse parallax) */}
       <S1_Hero3D />
+      {/* Anniversary spotlight — album «L» 1997 (animated cover, 1:1), auto-hides after 9.06.2026 */}
+      <L1997Spotlight />
       {/* S2 — Biografia / Kielce 1982 (timeline, parallax photo) */}
       <S2_Biografia />
       {/* S3 — Dyskografia (3D spinning vinyl records) */}
