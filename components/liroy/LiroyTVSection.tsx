@@ -27,7 +27,7 @@ const SESJE_ITEMS: Array<
   { type: "local", src: "/video/LIROY & ICE-T INTRO.mov", label: "LIROY & ICE-T — Intro" },
   { type: "yt", id: "nZ4h-1nihHw", label: "Moja Autobiografia VIDEO" },
   { type: "local", src: "/video/Ujęcie w Porshe z Marią.mp4", label: "Porsche" },
-  { type: "local", src: "/video/ferrari 3.mov", label: "Ferrari" },
+  { type: "local", src: "/video/ferrari-3.mov", label: "Ferrari" },
 ];
 
 const HISTORIA_YT = [
