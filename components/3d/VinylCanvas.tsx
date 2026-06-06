@@ -86,22 +86,29 @@ function Vinyl({ albumSrc, position, rotationY, speed, scale = 1 }: VinylProps) 
 // ── Scene contents ─────────────────────────────────────────────────────────
 const ALBUMS = [
   {
+    src: "/images/L.jpg",
+    position: [-3.8, 0, -0.8] as [number, number, number],
+    rotY: 0.32,
+    speed: 0.55,
+    scale: 0.80,
+  },
+  {
     src: "/images/grandpaparapa.jpg",
-    position: [-2.6, 0, -0.6] as [number, number, number],
-    rotY: 0.28,
+    position: [-1.5, 0, -0.4] as [number, number, number],
+    rotY: 0.18,
     speed: 0.65,
-    scale: 0.85,
+    scale: 0.87,
   },
   {
     src: "/images/L7_LP_Front_Cover.png",
-    position: [0, 0, 0] as [number, number, number],
-    rotY: 0,
+    position: [0.7, 0, 0] as [number, number, number],
+    rotY: -0.05,
     speed: 1.0,
-    scale: 1.1,
+    scale: 1.08,
   },
   {
     src: "/images/l-nino.jpg",
-    position: [2.6, 0, -0.6] as [number, number, number],
+    position: [3.1, 0, -0.5] as [number, number, number],
     rotY: -0.28,
     speed: 0.75,
     scale: 0.85,
