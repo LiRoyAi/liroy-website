@@ -1,6 +1,2 @@
-# LFS only for files that exceed GitHub's 100 MB limit.
-# Smaller media files are regular git blobs (Vercel serves them directly).
-"public/video/FINAL.mp4" filter=lfs diff=lfs merge=lfs -text
-"public/video/LIROY & ICE-T INTRO.mov" filter=lfs diff=lfs merge=lfs -text
-"public/video/Ul M\305\202oda Czerwony korytarz Liroy przechodzi (2).mp4" filter=lfs diff=lfs merge=lfs -text
-"public/video/dron Kielce jazda autem w nocy SADY.mp4" filter=lfs diff=lfs merge=lfs -text
+# No files tracked by LFS — all media served as regular git blobs (<50MB).
+# Large source files (>50MB) live in _video_src/ which is gitignored.

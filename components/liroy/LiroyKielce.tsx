@@ -1,25 +1,47 @@
 "use client";
 
+import { useEffect, useState, Component, ReactNode } from "react";
 import { motion } from "framer-motion";
+
+class VideoBgBoundary extends Component<{ children: ReactNode }, { err: boolean }> {
+  constructor(props: { children: ReactNode }) { super(props); this.state = { err: false }; }
+  static getDerivedStateFromError() { return { err: true }; }
+  render() {
+    if (this.state.err) return null;
+    return this.props.children;
+  }
+}
+
+function KielceBg() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) setShow(true);
+  }, []);
+  if (!show) return null;
+  return (
+    /* eslint-disable-next-line jsx-a11y/media-has-caption */
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="absolute inset-0 w-full h-full object-cover"
+      style={{ opacity: 0.18 }}
+    >
+      <source src="/video/dron-sady-tlo.mp4" type="video/mp4" />
+    </video>
+  );
+}
 
 export default function LiroyKielce() {
   return (
     <section id="kielce" className="relative min-h-screen overflow-hidden bg-black flex items-center">
       {/* Drone video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ filter: "brightness(0.2)" }}
-      >
-        <source src="/video/dron Kielce jazda autem w nocy SADY.mp4" type="video/mp4" />
-      </video>
+      <VideoBgBoundary><KielceBg /></VideoBgBoundary>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/60 pointer-events-none" />
 
       {/* 1982 — giant outline */}
       <div

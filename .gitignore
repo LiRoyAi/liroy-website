@@ -42,3 +42,11 @@ next-env.d.ts
 
 # render output (YouTube exports, nie do bundla)
 /render
+
+# Large source video files — not in git, not served by Vercel
+/_video_src/
+
+# Guard against accidentally committing large media (>50MB)
+# All .mov files are too large or unsupported on Vercel
+public/video/*.mov
+public/video/Ujęcie w Porshe z Marią.mp4

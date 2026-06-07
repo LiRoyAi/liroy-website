@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Component, ReactNode } from "react";
 import { motion, useInView } from "framer-motion";
 
 function useCountUp(target: number, inView: boolean, duration = 2200) {
@@ -46,6 +46,37 @@ function StatItem({ stat, inView }: { stat: typeof STATS[0]; inView: boolean }) 
   );
 }
 
+class VideoBgBoundary extends Component<{ children: ReactNode }, { err: boolean }> {
+  constructor(props: { children: ReactNode }) { super(props); this.state = { err: false }; }
+  static getDerivedStateFromError() { return { err: true }; }
+  render() {
+    if (this.state.err) return null;
+    return this.props.children;
+  }
+}
+
+function HeroBg() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) setShow(true);
+  }, []);
+  if (!show) return null;
+  return (
+    /* eslint-disable-next-line jsx-a11y/media-has-caption */
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="absolute inset-0 w-full h-full object-cover"
+      style={{ opacity: 0.18 }}
+    >
+      <source src="/video/hero-korytarz-tlo.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
 export default function LiroyHero() {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true });
@@ -53,23 +84,10 @@ export default function LiroyHero() {
   return (
     <section id="hero-liroy" className="relative h-screen w-full overflow-hidden bg-black">
       {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ filter: "brightness(0.35)" }}
-      >
-        <source src="/video/Ul Młoda Czerwony korytarz Liroy przechodzi (2).mp4" type="video/mp4" />
-      </video>
+      <VideoBgBoundary><HeroBg /></VideoBgBoundary>
 
-      {/* Fallback gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] to-black opacity-80" />
-
-      {/* Overlay gradients */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50 pointer-events-none" />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40 pointer-events-none" />
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">

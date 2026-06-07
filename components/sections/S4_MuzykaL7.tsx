@@ -1,8 +1,40 @@
 "use client";
 
+import { useEffect, useState, Component, ReactNode } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+
+class VideoBgBoundary extends Component<{ children: ReactNode }, { err: boolean }> {
+  constructor(props: { children: ReactNode }) { super(props); this.state = { err: false }; }
+  static getDerivedStateFromError() { return { err: true }; }
+  render() {
+    if (this.state.err) return null;
+    return this.props.children;
+  }
+}
+
+function MuzykaBg() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) setShow(true);
+  }, []);
+  if (!show) return null;
+  return (
+    /* eslint-disable-next-line jsx-a11y/media-has-caption */
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="absolute inset-0 w-full h-full object-cover"
+      style={{ opacity: 0.18 }}
+    >
+      <source src="/video/muzyka-l7-tlo.mp4" type="video/mp4" />
+    </video>
+  );
+}
 
 export default function S4_MuzykaL7() {
   return (
@@ -11,16 +43,7 @@ export default function S4_MuzykaL7() {
       className="relative min-h-screen w-full overflow-hidden bg-black flex items-center"
     >
       {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        className="absolute inset-0 w-full h-full object-cover opacity-25"
-      >
-        <source src="/video/FINAL.mp4" type="video/mp4" />
-      </video>
+      <VideoBgBoundary><MuzykaBg /></VideoBgBoundary>
 
       {/* Overlay */}
       <div
