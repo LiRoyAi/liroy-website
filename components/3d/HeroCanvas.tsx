@@ -1,12 +1,9 @@
 "use client";
 
-import { useRef, useEffect, Component, ReactNode, Suspense } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useTexture } from "@react-three/drei";
-import * as THREE from "three";
+import { useRef, useEffect, Component, ReactNode } from "react";
 import { useSceneStore } from "@/store/scene";
 
-// ── Error boundary — isolates WebGL failures from the rest of the page ────────
+// ── Error boundary — fallback to static poster on any failure ─────────────────
 interface EBState { hasError: boolean }
 class HeroErrorBoundary extends Component<{ children: ReactNode }, EBState> {
   constructor(props: { children: ReactNode }) {
@@ -15,54 +12,95 @@ class HeroErrorBoundary extends Component<{ children: ReactNode }, EBState> {
   }
   static getDerivedStateFromError() { return { hasError: true }; }
   render() {
-    if (this.state.hasError) return null;
+    if (this.state.hasError) {
+      return (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src="/images/tarcza.png"
+          alt="LIROY"
+          style={{
+            position: "absolute", inset: 0, margin: "auto",
+            width: "min(44vw, 340px)", height: "auto", opacity: 0.45,
+            mixBlendMode: "screen",
+          }}
+        />
+      );
+    }
     return this.props.children;
   }
 }
 
-// ── Shield mesh (static tarcza.png texture) ───────────────────────────────────
-function ShieldPlane() {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const { mouseX, mouseY, heroProgress } = useSceneStore();
-  const texture = useTexture("/images/tarcza.png");
+// ── Animated logo — HTML5 video with CSS parallax + spin ─────────────────────
+function AnimLogo() {
+  const wrapRef = useRef<HTMLDivElement>(null);
 
-  useFrame((_, delta) => {
-    if (!meshRef.current) return;
+  useEffect(() => {
+    let rotZ = 0;
+    let lastTime = performance.now();
+    let raf: number;
 
-    // Continuous Z rotation (shield spinning)
-    meshRef.current.rotation.z += delta * 0.25;
+    const tick = (now: number) => {
+      const delta = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+      // 0.25 rad/s ≈ 14.3 deg/s, same rate as original R3F version
+      rotZ = (rotZ + delta * 14.32) % 360;
 
-    // Mouse parallax on X/Y tilt
-    const targetRX = mouseY * 0.4;
-    const targetRY = mouseX * 0.4;
-    meshRef.current.rotation.x +=
-      (targetRX - meshRef.current.rotation.x) * 0.04;
-    meshRef.current.rotation.y +=
-      (targetRY - meshRef.current.rotation.y) * 0.04;
+      if (wrapRef.current) {
+        const { mouseX, mouseY, heroProgress } = useSceneStore.getState();
+        // 0.4 rad parallax ≈ 22.9°
+        const rx = mouseY * 22.9;
+        const ry = mouseX * 22.9;
+        const scale = 1 + heroProgress * 0.8;
+        const tz = heroProgress * 120;
+        wrapRef.current.style.transform =
+          `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rotZ}deg) ` +
+          `scale(${scale}) translateZ(${tz}px)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
 
-    // Scroll: scale up + move towards camera
-    const targetScale = 1 + heroProgress * 0.8;
-    const currentScale = meshRef.current.scale.x;
-    meshRef.current.scale.setScalar(
-      currentScale + (targetScale - currentScale) * 0.06
-    );
-    meshRef.current.position.z = heroProgress * 1.5;
-  });
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
-    <mesh ref={meshRef}>
-      <planeGeometry args={[3.2, 3.2]} />
-      <meshBasicMaterial
-        map={texture}
-        transparent
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </mesh>
+    <div
+      style={{ perspective: "700px", display: "flex", alignItems: "center", justifyContent: "center", inset: 0, position: "absolute" }}
+    >
+      <div
+        ref={wrapRef}
+        style={{
+          width: "min(48vw, 360px)",
+          height: "min(48vw, 360px)",
+          transformStyle: "preserve-3d",
+          willChange: "transform",
+        }}
+      >
+        {/* Animated logo video — screen blend makes black transparent */}
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/tarcza.png"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            mixBlendMode: "screen",
+            display: "block",
+          }}
+        >
+          <source src="/video/anim-logo2.mp4" type="video/mp4" />
+          {/* Fallback: static poster already shown by browser if video fails */}
+        </video>
+      </div>
+    </div>
   );
 }
 
-// ── HeroCanvas ──────────────────────────────────────────────────────────────
+// ── HeroCanvas ────────────────────────────────────────────────────────────────
 export default function HeroCanvas({ className = "" }: { className?: string }) {
   const setMouse = useSceneStore((s) => s.setMouse);
   const setScroll = useSceneStore((s) => s.setScroll);
@@ -87,20 +125,10 @@ export default function HeroCanvas({ className = "" }: { className?: string }) {
   }, [setMouse, setScroll]);
 
   return (
-    <HeroErrorBoundary>
-      <Canvas
-        className={className}
-        camera={{ position: [0, 0, 5], fov: 55 }}
-        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-        dpr={[1, Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 2)]}
-      >
-        <ambientLight intensity={0.6} />
-        <pointLight position={[4, 6, 4]} intensity={1.2} color="#ffffff" />
-        <pointLight position={[-4, -2, 2]} intensity={0.4} color="#C9A84C" />
-        <Suspense fallback={null}>
-          <ShieldPlane />
-        </Suspense>
-      </Canvas>
-    </HeroErrorBoundary>
+    <div className={className}>
+      <HeroErrorBoundary>
+        <AnimLogo />
+      </HeroErrorBoundary>
+    </div>
   );
 }

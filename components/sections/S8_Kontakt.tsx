@@ -49,9 +49,7 @@ export default function S8_Kontakt() {
             className="absolute inset-0 w-full h-full object-cover object-center"
             aria-hidden="true"
           >
-            {/* WebM first — smaller, better quality on modern browsers */}
-            <source src="/video/kontakt-bg.webm" type="video/webm" />
-            <source src="/video/kontakt-bg.mp4"  type="video/mp4" />
+            <source src="/video/dron-sady-tlo.mp4" type="video/mp4" />
           </video>
         ) : (
           /* Mobile / prefers-reduced-motion / SSR: static poster */
