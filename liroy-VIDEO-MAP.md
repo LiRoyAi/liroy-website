@@ -14,7 +14,7 @@ Rejestr filmów osadzonych na stronie oraz plików wideo w `public/video/`.
 | `LNTA_jN8Jcw` | Liroy — Pierwszy występ w Telewizji (Lalamido 1993) | /tv TELEDYSKI (`YouTubeCurated.tsx`) |
 | `OeOhjjz4Vwg` | LiROY — PKiN wręczenie platynowej płyty 1995 | /tv TELEDYSKI (`YouTubeCurated.tsx`) |
 | `nZ4h-1nihHw` | Liroy — Moja Autobiografia VIDEO | /tv TELEDYSKI + S7_TVTeaser (strona główna) |
-| `o7XS3H9_n24` | LiROY — XXXI ROCZNICA WYDANIA PŁYTY "SCYZORYK" EP | /tv TELEDYSKI + S7_TVTeaser (strona główna) |
+| `o7XS3H9_n24` | LiROY — XXXI ROCZNICA WYDANIA PŁYTY "SCYZORYK" EP | Strona główna — blok rocznicowy «Scyzoryk» (`L1997_Anniversary.tsx` → `ScyzorykAlboomBlock`) + /tv TELEDYSKI + S7_TVTeaser |
 | `Q7ym_R8QnAU` | LIROY & DJ HWR – ZŁOŚĆ feat. PiH, KABE [Official Teaser] | /tv TELEDYSKI (`YouTubeCurated.tsx`) |
 | `kuGisaXOKOE` | Koncert Kielce | /tv KONCERTY (`YouTubeCurated.tsx`) |
 | `wdQep96v0zA` | Koncert Kielce | /tv KONCERTY (`YouTubeCurated.tsx`) |

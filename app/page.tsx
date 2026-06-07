@@ -7,7 +7,7 @@ import S5_Koncerty from "@/components/sections/S5_Koncerty";
 import S6_Drop3D from "@/components/sections/S6_Drop3D";
 import S7_TVTeaser from "@/components/sections/S7_TVTeaser";
 import S8_Kontakt from "@/components/sections/S8_Kontakt";
-import { L1997Ribbon, L1997Block } from "@/components/sections/L1997_Anniversary";
+import { L1997Ribbon, L1997Block, ScyzorykAlboomBlock } from "@/components/sections/L1997_Anniversary";
 
 export default function Home() {
   return (
@@ -19,6 +19,8 @@ export default function Home() {
       <S1_Hero3D />
       {/* Anniversary block — album «L» 1997: ożywiona okładka + oficjalny teledysk, auto-hides after 9.06.2026 */}
       <L1997Block />
+      {/* Anniversary block — singel «Scyzoryk» 1995 / album «Albóóm», auto-hides after 1.01.2027 */}
+      <ScyzorykAlboomBlock />
       {/* S2 — Biografia / Kielce 1982 (timeline, parallax photo) */}
       <S2_Biografia />
       {/* S3 — Dyskografia (3D spinning vinyl records) */}
