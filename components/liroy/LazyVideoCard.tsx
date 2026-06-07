@@ -6,6 +6,7 @@ interface Props {
   src: string;
   label: string;
   sublabel?: string;
+  poster?: string;
   className?: string;
   aspectRatio?: string;
 }
@@ -14,6 +15,7 @@ export default function LazyVideoCard({
   src,
   label,
   sublabel,
+  poster,
   className = "",
   aspectRatio = "aspect-video",
 }: Props) {
@@ -59,12 +61,25 @@ export default function LazyVideoCard({
     >
       {/* Video — only mount when in viewport */}
       {ready && !error && (
+        /* eslint-disable-next-line jsx-a11y/media-has-caption */
         <video
           ref={videoRef}
           src={src}
-          preload="none"
+          poster={poster}
+          preload="metadata"
           playsInline
+          controls={playing}
           onError={() => setError(true)}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+
+      {/* Poster fallback before video loads */}
+      {!ready && poster && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={poster}
+          alt={label}
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}

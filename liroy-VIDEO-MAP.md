@@ -54,26 +54,33 @@ Wszystkie poniższe zwracały HTTP 404 w YouTube oEmbed API — filmy usunięte 
 
 ---
 
-## 📁 public/video/ — pliki lokalne
+## 📁 public/video/ — pliki lokalne (wszystkie zwykłe git blobs, bez LFS)
 
-| Plik | Rozmiar | Status | Gdzie używany |
-|---|---|---|---|
-| `kontakt-bg.mp4` | ~494 KB | ✅ AKTYWNY | `S8_Kontakt.tsx` — tło wideo sekcji Kontakt (H.264 loop) |
-| `kontakt-bg.webm` | ~253 KB | ✅ AKTYWNY | `S8_Kontakt.tsx` — tło wideo sekcji Kontakt (VP9 loop) |
-| `kontakt-poster.jpg` | ~52 KB | ✅ AKTYWNY | `S8_Kontakt.tsx` — poster fallback (mobile/reduced-motion) |
-| `baza zbożowa płyty pamiątki etc.mp4` | ~130 MB | ⚠️ OBECNY (nie zcommitowany) | Nie osadzony. Plik fizycznie istnieje w `public/video/` — NIE jest usunięty mimo wcześniejszego oznaczenia jako DELETED w historii zadań. |
-| `baza zbożowa płyty pamiątki etc (2).mp4` | ~34 MB | ⚠️ OBECNY (nie zcommitowany) | Nie osadzony. Druga wersja jw. Fizycznie w `public/video/`. |
-| `dron Kielce jazda autem w nocy.mp4` | ~122 MB | ⚠️ OBECNY — SUROWY, nie commitować | Źródło do `kontakt-bg.mp4/.webm`. >100 MB — poza repo (gitignore / LFS). |
-| `Anim Logo2.mp4` | — | 📦 DOSTĘPNY | Animacja logo — nie osadzony |
-| `FINAL.mp4` | — | 📦 DOSTĘPNY | Nie osadzony |
-| `FINAL_pion.mp4` | — | 📦 DOSTĘPNY | Nie osadzony |
-| `Scyzoryk XXXI LAT VID.mov` | — | 📦 DOSTĘPNY | Nie osadzony |
-| *(pozostałe pliki archiwalne)* | — | 📦 DOSTĘPNY | Materiały surowe / archiwalne, nie osadzone |
+| Plik | Rozmiar | Gdzie używany |
+|---|---|---|
+| `anim-logo2.mp4` | 9.5 MB | `HeroCanvas.tsx` — animowane logo hero (strona główna) |
+| `hero-korytarz-tlo.mp4` | 1.1 MB | `LiroyHero.tsx` — tło hero /liroy (Ul. Młoda korytarz, 25s, CRF 24) |
+| `dron-sady-tlo.mp4` | 4.5 MB | `LiroyKielce.tsx` — tło sekcji Kielce 1982 (fragment 1:57–2:24 z SADY) |
+| `muzyka-l7-tlo.mp4` | 16 MB | `S4_MuzykaL7.tsx` — tło sekcji L7 (22s, CRF 24) |
+| `dron-sady-tlo.mp4` | 4.5 MB | `S8_Kontakt.tsx` — tło sekcji Kontakt/Footer |
+| `dron-nocny-tlo.mp4` | 2.6 MB | `LiroyTVSection.tsx` tab DRONY — Kielce nocna jazda (25s, CRF 22) |
+| `dron-ulica-gory.mp4` | 3.4 MB | `LiroyTVSection.tsx` tab DRONY — Kielce z góry |
+| `ferrari-3.mp4` | 8.5 MB | `LiroyTVSection.tsx` tab SESJE — karta Ferrari (z audio, CRF 21) |
+| `porsche-maria.mp4` | 7.9 MB | `LiroyTVSection.tsx` tab SESJE — karta Porsche (fragment 31:40–32:23, 43s, CRF 22) |
+| `kontakt-bg.mp4` | 494 KB | zapasowy zasób (legacy) |
+| `kontakt-poster.jpg` | 22 KB | `S8_Kontakt.tsx` — poster fallback |
 
----
+## 🗄️ Źródła surowe (gitignored, lokalne tylko)
 
-## Zasady
+| Plik | Rozmiar | Uwagi |
+|---|---|---|
+| `public/video/Ujęcie w Porshe z Marią.mp4` | 1.3 GB | Oryginał Porsche. Gitignored. Fragment 31:40–32:23 → `porsche-maria.mp4` |
+| `_video_src/` (katalog) | — | Inne surowe źródła (>50 MB). Gitignored. |
 
-- Pliki >10 MB → **nie commitować** do gita. Używać LFS lub CDN.
-- Pliki kompresowane do repo (`kontakt-bg.*`) → max ~2 MB na plik.
-- Przed dodaniem nowego embeda YouTube → sprawdzić listę embarg powyżej.
+## Zasady (stan 06.2026)
+
+- Reguła: wyłącznie `.mp4` jako zwykłe git blobs, **< 50 MB**.
+- Brak LFS — wrangler/Vercel nie serwuje LFS (text/plain zamiast video/mp4).
+- Pliki `.mov` — gitignored (`public/video/*.mov`).
+- Pliki >50 MB — do `_video_src/` (gitignored) lub na R2/CDN (osobna decyzja).
+- Przed dodaniem nowego embeda YouTube → sprawdzić listę embarg powyżej (embargo: `c9rBCq5ubKY`).

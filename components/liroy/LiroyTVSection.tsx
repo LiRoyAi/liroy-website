@@ -18,14 +18,14 @@ const TELEDYSKI_YT = [
 
 const SESJE_ITEMS: Array<
   | { type: "yt"; id: string; label: string }
-  | { type: "local"; src: string; label: string }
+  | { type: "local"; src: string; poster?: string; label: string }
 > = [
   { type: "yt", id: "bPWxSD8hPXA", label: "Backstage #1" },
   { type: "yt", id: "JlnJkzwyrsQ", label: "Backstage #2" },
   { type: "yt", id: "jlsYDbZnnmo", label: "Backstage #3" },
   { type: "yt", id: "5wjsdlXMl0Q", label: "LIROY & ICE-T — Intro" },
   { type: "yt", id: "nZ4h-1nihHw", label: "Moja Autobiografia VIDEO" },
-  { type: "local", src: "/video/Ujęcie w Porshe z Marią.mp4", label: "Porsche" },
+  { type: "local", src: "/video/porsche-maria.mp4", poster: "/images/porsche-poster.jpg", label: "Porsche" },
   { type: "local", src: "/video/ferrari-3.mp4", label: "Ferrari" },
 ];
 
@@ -108,7 +108,7 @@ export default function LiroyTVSection() {
               item.type === "yt" ? (
                 <YouTubeEmbed key={i} videoId={item.id} label={item.label} />
               ) : (
-                <LazyVideoCard key={i} src={item.src} label={item.label} />
+                <LazyVideoCard key={i} src={item.src} poster={item.poster} label={item.label} />
               )
             )}
 
