@@ -35,7 +35,7 @@ function HeroBg() {
       playsInline
       preload="metadata"
       className="absolute inset-0 w-full h-full object-cover"
-      style={{ opacity: 0.18 }}
+      style={{ opacity: 0.45 }}
       aria-hidden="true"
     >
       <source src="/video/kontakt-bg.mp4" type="video/mp4" />
@@ -94,7 +94,7 @@ export default function PressKitClient() {
       {/* ═══════════════════════════════════════════════════════════════════ */}
       {/* HERO                                                                */}
       {/* ═══════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen w-full overflow-hidden bg-black flex flex-col items-center justify-center">
+      <section className="relative min-h-[72vh] w-full overflow-hidden bg-black flex flex-col items-center justify-center">
         <VideoBgBoundary>
           <HeroBg />
         </VideoBgBoundary>
@@ -103,7 +103,7 @@ export default function PressKitClient() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(135deg, rgba(0,0,0,0.93) 0%, rgba(10,8,0,0.76) 50%, rgba(0,0,0,0.93) 100%)",
+              "linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(10,8,0,0.5) 50%, rgba(0,0,0,0.72) 100%)",
           }}
         />
         <div
