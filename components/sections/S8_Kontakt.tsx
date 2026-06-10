@@ -98,10 +98,11 @@ export default function S8_Kontakt() {
               </p>
               <a
                 href="tel:+48791742606"
-                className="text-white/70 hover:text-white transition-colors text-sm tracking-widest block mb-1"
+                className="text-white/70 hover:text-white transition-colors text-sm tracking-widest block mb-2"
               >
                 791 742 606
               </a>
+              <div className="w-6 h-px bg-white/15 mb-2" />
               <a
                 href="mailto:Manager@liroy.pl"
                 className="text-white/70 hover:text-white transition-colors text-sm tracking-widest"
@@ -116,21 +117,11 @@ export default function S8_Kontakt() {
               </p>
               <Link
                 href="/press-kit"
-                className="text-white/70 hover:text-[#C9A84C] transition-colors text-sm tracking-widest"
+                className="inline-block border border-[#C9A84C]/60 text-[#C9A84C] hover:bg-[#C9A84C] hover:text-black transition-all duration-300 text-[10px] tracking-[0.35em] uppercase font-bebas px-6 py-3 mt-1"
               >
-                Materiały dla mediów →
+                Press Kit / EPK →
               </Link>
             </div>
-          </div>
-
-          {/* Press Kit CTA */}
-          <div className="mb-12">
-            <Link
-              href="/press-kit"
-              className="inline-block border border-[#C9A84C]/60 text-[#C9A84C] px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-bebas"
-            >
-              Press Kit / EPK — Materiały dla organizatorów i mediów →
-            </Link>
           </div>
 
           {/* Social links */}
