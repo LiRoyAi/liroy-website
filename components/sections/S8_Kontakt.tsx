@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const SOCIALS = [
   { label: "YouTube",   href: "https://www.youtube.com/@liroyPolska" },
@@ -87,7 +88,7 @@ export default function S8_Kontakt() {
           viewport={{ once: true }}
         >
           {/* Contact emails */}
-          <div className="flex flex-col sm:flex-row gap-8 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-8 justify-center mb-12 flex-wrap items-start">
             <div>
               <p className="text-[#C9A84C] text-[10px] tracking-[0.4em] uppercase mb-2">
                 Booking
@@ -99,7 +100,7 @@ export default function S8_Kontakt() {
                 booking@liroy.pl
               </a>
             </div>
-            <div className="hidden sm:block w-px bg-white/10" />
+            <div className="hidden sm:block w-px bg-white/10 self-stretch" />
             <div>
               <p className="text-[#C9A84C] text-[10px] tracking-[0.4em] uppercase mb-2">
                 Media
@@ -110,6 +111,18 @@ export default function S8_Kontakt() {
               >
                 media@liroy.pl
               </a>
+            </div>
+            <div className="hidden sm:block w-px bg-white/10 self-stretch" />
+            <div>
+              <p className="text-[#C9A84C] text-[10px] tracking-[0.4em] uppercase mb-2">
+                Press Kit / EPK
+              </p>
+              <Link
+                href="/press-kit"
+                className="text-white/70 hover:text-[#C9A84C] transition-colors text-sm tracking-widest"
+              >
+                Materiały dla mediów →
+              </Link>
             </div>
           </div>
 
