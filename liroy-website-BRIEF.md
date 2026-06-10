@@ -19,11 +19,21 @@ Sklep/CDN: shop.liroy.pl (Shopify, osobna subdomena).
 
 | Komponent | Treść | Wideo |
 |-----------|-------|-------|
-| `PressKitClient.tsx` | Bio prasowe, 3 pliki do pobrania (CDN Shopify), kontakt Manager@liroy.pl (Dorota Liroy-Marzec, 791 742 606), linki oficjalne | tło: kontakt-bg.mp4 (opacity 0.18, reuse z nazwy S8) |
+| `PressKitClient.tsx` | Bio prasowe, 3 pliki do pobrania (CDN Shopify), kontakt Manager@liroy.pl (Dorota Liroy-Marzec, 791 742 606), linki oficjalne | tło: kontakt-bg.mp4 (opacity **0.45**, overlay rgba 0.72/0.50/0.72) |
 
 Wejścia: (1) przycisk CTA gold w `S8_Kontakt`, (2) link „Materiały dla mediów →" w stopce `S8_Kontakt`. Brak w głównej nawigacji (świadomie — materiały dla branży, nie publiczności).
 
 Kontakt na całej stronie ujednolicony na Manager@liroy.pl — booking@liroy.pl i media@liroy.pl usunięte (06.2026).
+
+### PRESS KIT — FINALNY STAN (1c8b70f)
+
+- Podstrona /press-kit w pełni live, hero z wideo kontakt-bg.mp4.
+- Hero: `min-h-[72vh]` (NIE `min-h-screen` — full screen spychał całą treść pod widok, user musiał zjeżdżać jak na osobną stronę).
+- Tło wideo: video opacity 0.45 + overlay `linear-gradient(135deg, rgba(0,0,0,0.72), rgba(10,8,0,0.5), rgba(0,0,0,0.72))`.
+  **LEKCJA:** overlay 0.93/0.76 + video opacity 0.18 = czerń (mnożnik tłumienia ×2). Przy ciemnym klipie tła NIE dawać dwóch ciężkich warstw naraz.
+- Kontakt na całej stronie: tylko Manager@liroy.pl (Dorota Liroy-Marzec, 791 742 606). booking@/media@ usunięte z całego repo.
+- Martwe komponenty usunięte/zignorowane: `Kontakt.tsx` (usunięty), `ChapterKontakt.tsx` (nieimportowany relikt — do sprzątania przy okazji).
+- **LEKCJA:** przy szukaniu „znikniętej" treści grepować warianty z myślnikiem (press-kit nie tylko press) i sprawdzać czy treść nie żyje w osobnym systemie. Press Kit cały czas był stroną Shopify (shop.liroy.pl/pages/press-kit, id 711322534272), nie w repo Next.js.
 
 ---
 

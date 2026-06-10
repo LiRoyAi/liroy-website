@@ -67,7 +67,7 @@ Wszystkie poniższe zwracały HTTP 404 w YouTube oEmbed API — filmy usunięte 
 | `dron-ulica-gory.mp4` | 3.4 MB | `LiroyTVSection.tsx` tab DRONY — Kielce z góry |
 | `ferrari-3.mp4` | 8.5 MB | `LiroyTVSection.tsx` tab SESJE — karta Ferrari (z audio, CRF 21) |
 | `porsche-maria.mp4` | 7.9 MB | `LiroyTVSection.tsx` tab SESJE — karta Porsche (fragment 31:40–32:23, 43s, CRF 22) |
-| `kontakt-bg.mp4` | 494 KB | `PressKitClient.tsx` — hero /press-kit (0.18 opacity) + reuse plan z `S8_Kontakt.tsx` (S8 aktualnie używa `dron-sady-tlo.mp4`) |
+| `kontakt-bg.mp4` | 494 KB | `PressKitClient.tsx` — /press-kit HERO, opacity **0.45** (NIE 0.18). TYLKO ten plik — S8_Kontakt używa `dron-sady-tlo.mp4` |
 | `kontakt-poster.jpg` | 22 KB | `S8_Kontakt.tsx` — poster fallback |
 
 ## 🗄️ Źródła surowe (gitignored, lokalne tylko)
