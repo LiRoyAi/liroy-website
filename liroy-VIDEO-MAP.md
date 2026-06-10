@@ -68,7 +68,9 @@ Wszystkie poniższe zwracały HTTP 404 w YouTube oEmbed API — filmy usunięte 
 | `ferrari-3.mp4` | 8.5 MB | `LiroyTVSection.tsx` tab SESJE — karta Ferrari (z audio, CRF 21) |
 | `porsche-maria.mp4` | 7.9 MB | `LiroyTVSection.tsx` tab SESJE — karta Porsche (fragment 31:40–32:23, 43s, CRF 22) |
 | `kontakt-bg.mp4` | 494 KB | `PressKitClient.tsx` — /press-kit HERO, opacity **0.45** (NIE 0.18). TYLKO ten plik — S8_Kontakt używa `dron-sady-tlo.mp4` |
+| `kontakt-bg.webm` | — | Fallback do kontakt-bg.mp4. Aktualnie nielinkowany w kodzie (PressKitClient używa tylko .mp4). Zostawiony jako rezerwa. |
 | `kontakt-poster.jpg` | 22 KB | `S8_Kontakt.tsx` — poster fallback |
+| `LiROY - Czas na Boom Bap!.mp4` | — | Tracked, wdrażany na Vercel, **ale nielinkowany w kodzie** (grep = 0). Zachowany świadomie (decyzja Liroy). Nie usuwać jako martwy. |
 
 ## 🗄️ Źródła surowe (gitignored, lokalne tylko)
 
@@ -96,3 +98,26 @@ KRUCHOSC: podmiana pliku w Shopify zmienia ?v= → linki w PressKitClient.tsx pa
 - Pliki `.mov` — gitignored (`public/video/*.mov`).
 - Pliki >50 MB — do `_video_src/` (gitignored) lub na R2/CDN (osobna decyzja).
 - Przed dodaniem nowego embeda YouTube → sprawdzić listę embarg powyżej (embargo: `c9rBCq5ubKY`).
+
+---
+
+## CZYSTOSC public/video/ — LEKCJA PORZADKOWA (sesja 06.2026)
+
+W `public/video/` trzymamy WYLACZNIE pliki uzywane na produkcji (git-tracked, objete negacjami w `.vercelignore`). Surowki i materialy zrodlowe NIE trafiaja tutaj — ida do `_video_src/` (gitignored, poza zasiegiem Vercela).
+
+**Blad do unikniecia:** surowki, koncerty, wystepy i pliki AI ladowaly jako untracked w `public/video/`. `.vercelignore` chronil produkcje (negacje tylko dla wybranych plikow), ale lokalnie zalegalo 1 GB+ smieci. Materialy zastapione YouTube embedami tez nie maja byc w `public/video/` — sa na YT, lokalnie zbedne.
+
+**Bezpieczne czyszczenie untracked smieci (NIE rusza plikow tracked):**
+
+```sh
+git clean -n -d public/video/   # dry run — pokazuje co usunie
+git clean -f -d public/video/   # usuwa tylko untracked
+```
+
+**Stan po czyszczeniu (12 plikow tracked, wszystkie .vercelignore-negated):**
+`anim-logo2.mp4`, `dron-nocny-tlo.mp4`, `dron-sady-tlo.mp4`, `dron-ulica-gory.mp4`, `ferrari-3.mp4`, `hero-korytarz-tlo.mp4`, `kontakt-bg.mp4`, `kontakt-bg.webm`, `kontakt-poster.jpg`, `muzyka-l7-tlo.mp4`, `porsche-maria.mp4`, `LiROY - Czas na Boom Bap!.mp4`
+
+**UWAGI:**
+- `LiROY - Czas na Boom Bap!.mp4` — tracked, wdrażany na Vercel, ale NIE linkowany w kodzie (grep = 0). ZACHOWANY SWIADOMIE (decyzja Liroy). Nie usuwac jako martwy.
+- `kontakt-bg.webm` — fallback do `kontakt-bg.mp4`, aktualnie nielinkowany w kodzie (PressKitClient uzywa tylko .mp4). Zostawiony jako rezerwa.
+- `dron-ulica-gory.mp4` — tracked i linkowany (grep = 1), aktywny.

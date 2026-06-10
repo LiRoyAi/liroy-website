@@ -37,6 +37,12 @@ Kontakt na całej stronie ujednolicony na Manager@liroy.pl — booking@liroy.pl 
 
 ---
 
+## Zasady wideo / learnings
+
+**LEKCJA (sesja porządkowa public/video/, 06.2026):** surowki i materiały źródłowe trzymać w `_video_src/` (gitignored), NIGDY w `public/video/`. `public/video/` = tylko pliki produkcyjne (12 tracked). Czyszczenie untracked śmieci: `git clean -f -d public/video/` (nie rusza tracked). Zwolniło 1 GB+ lokalnie, zero wpływu na repo/produkcję. „Boom Bap" mp4 zachowany świadomie mimo braku linka w kodzie.
+
+---
+
 ## ⚠️ PRESS KIT — PLIKI NA CDN SHOPIFY
 
 Trzy pliki hostowane na cdn.shopify.com (NIE repo, NIE Vercel). Base: https://cdn.shopify.com/s/files/1/0920/0595/8016/files/
