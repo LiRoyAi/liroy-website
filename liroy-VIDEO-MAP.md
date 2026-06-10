@@ -67,7 +67,7 @@ Wszystkie poniższe zwracały HTTP 404 w YouTube oEmbed API — filmy usunięte 
 | `dron-ulica-gory.mp4` | 3.4 MB | `LiroyTVSection.tsx` tab DRONY — Kielce z góry |
 | `ferrari-3.mp4` | 8.5 MB | `LiroyTVSection.tsx` tab SESJE — karta Ferrari (z audio, CRF 21) |
 | `porsche-maria.mp4` | 7.9 MB | `LiroyTVSection.tsx` tab SESJE — karta Porsche (fragment 31:40–32:23, 43s, CRF 22) |
-| `kontakt-bg.mp4` | 494 KB | zapasowy zasób (legacy) |
+| `kontakt-bg.mp4` | 494 KB | `PressKitClient.tsx` — hero /press-kit (0.18 opacity) + reuse plan z `S8_Kontakt.tsx` (S8 aktualnie używa `dron-sady-tlo.mp4`) |
 | `kontakt-poster.jpg` | 22 KB | `S8_Kontakt.tsx` — poster fallback |
 
 ## 🗄️ Źródła surowe (gitignored, lokalne tylko)
@@ -76,6 +76,18 @@ Wszystkie poniższe zwracały HTTP 404 w YouTube oEmbed API — filmy usunięte 
 |---|---|---|
 | `public/video/Ujęcie w Porshe z Marią.mp4` | 1.3 GB | Oryginał Porsche. Gitignored. Fragment 31:40–32:23 → `porsche-maria.mp4` |
 | `_video_src/` (katalog) | — | Inne surowe źródła (>50 MB). Gitignored. |
+
+## ⚠️ PRESS KIT — PLIKI NA CDN SHOPIFY
+
+Trzy pliki hostowane na cdn.shopify.com (NIE repo, NIE Vercel). Base: https://cdn.shopify.com/s/files/1/0920/0595/8016/files/
+
+- Press Kit PDF (1,76MB): LIROY_PRESS_KIT_2026_FINAL_FRAMED_LAYOUT_V2_SHOPIFY_PRINT.pdf?v=1779539093
+- Zdjecia+logo ZIP (17,4MB): LIROY_PRESS_KIT_2026_FINAL_FRAMED_LAYOUT_V2_PACKAGE.zip?v=1779538901
+- Rider koncertowy PDF (152KB, 2 strony): LIROY_Rider_Koncertowy_2strony.pdf?v=1779539147
+
+KRUCHOSC: podmiana pliku w Shopify zmienia ?v= → linki w PressKitClient.tsx padaja (404). Po kazdej aktualizacji: pobrac nowy URL z Shopify (page handle: press-kit) i podmienic w PressKitClient.tsx.
+
+---
 
 ## Zasady (stan 06.2026)
 

@@ -87,29 +87,26 @@ export default function S8_Kontakt() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          {/* Contact emails */}
+          {/* Contact */}
           <div className="flex flex-col sm:flex-row gap-8 justify-center mb-12 flex-wrap items-start">
             <div>
               <p className="text-[#C9A84C] text-[10px] tracking-[0.4em] uppercase mb-2">
-                Booking
+                Booking / Kontakt
+              </p>
+              <p className="text-white/50 text-xs tracking-widest mb-1">
+                Dorota Liroy-Marzec
               </p>
               <a
-                href="mailto:booking@liroy.pl"
-                className="text-white/70 hover:text-white transition-colors text-sm tracking-widest"
+                href="tel:+48791742606"
+                className="text-white/70 hover:text-white transition-colors text-sm tracking-widest block mb-1"
               >
-                booking@liroy.pl
+                791 742 606
               </a>
-            </div>
-            <div className="hidden sm:block w-px bg-white/10 self-stretch" />
-            <div>
-              <p className="text-[#C9A84C] text-[10px] tracking-[0.4em] uppercase mb-2">
-                Media
-              </p>
               <a
-                href="mailto:media@liroy.pl"
+                href="mailto:Manager@liroy.pl"
                 className="text-white/70 hover:text-white transition-colors text-sm tracking-widest"
               >
-                media@liroy.pl
+                Manager@liroy.pl
               </a>
             </div>
             <div className="hidden sm:block w-px bg-white/10 self-stretch" />
