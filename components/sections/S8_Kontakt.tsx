@@ -126,6 +126,16 @@ export default function S8_Kontakt() {
             </div>
           </div>
 
+          {/* Press Kit CTA */}
+          <div className="mb-12">
+            <Link
+              href="/press-kit"
+              className="inline-block border border-[#C9A84C]/60 text-[#C9A84C] px-10 py-4 text-[10px] tracking-[0.35em] uppercase hover:bg-[#C9A84C] hover:text-black transition-all duration-300 font-bebas"
+            >
+              Press Kit / EPK — Materiały dla organizatorów i mediów →
+            </Link>
+          </div>
+
           {/* Social links */}
           <div className="flex flex-wrap items-center justify-center gap-5 mb-12">
             {SOCIALS.map(({ label, href }) => (
