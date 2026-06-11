@@ -10,6 +10,7 @@ interface Match {
   t2: { name: string; flag: string };
   date: string;
   time: string;
+  deadline: string;
 }
 
 const MATCHES: Match[] = [
@@ -20,6 +21,7 @@ const MATCHES: Match[] = [
     t2: { name: "RPA", flag: "🇿🇦" },
     date: "11 czerwca 2026",
     time: "21:00",
+    deadline: "2026-06-11T19:00:00Z",
   },
   {
     id: "kor-cze",
@@ -28,6 +30,7 @@ const MATCHES: Match[] = [
     t2: { name: "Czechy", flag: "🇨🇿" },
     date: "11 czerwca 2026",
     time: "04:00",
+    deadline: "2026-06-12T02:00:00Z",
   },
 ];
 
@@ -50,6 +53,7 @@ function MatchCard({
   const [results, setResults] = useState<Results>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const isPast = new Date() > new Date(match.deadline);
 
   useEffect(() => {
     const stored = localStorage.getItem(`voted:${match.id}`);
@@ -159,8 +163,21 @@ function MatchCard({
             </span>
           </div>
 
-          {/* Score pickers */}
-          {!voted ? (
+          {/* Score pickers / voted display / deadline lock */}
+          {voted ? (
+            <div
+              className="text-center px-4"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 900,
+                fontSize: "2.5rem",
+                color: "#FFD700",
+                letterSpacing: "0.05em",
+              }}
+            >
+              {myVote ?? "?"}
+            </div>
+          ) : !isPast ? (
             <div className="flex items-center gap-3">
               <ScorePicker value={score1} onChange={setScore1} />
               <span
@@ -180,13 +197,13 @@ function MatchCard({
               className="text-center px-4"
               style={{
                 fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 900,
-                fontSize: "2.5rem",
-                color: "#FFD700",
+                fontWeight: 700,
+                fontSize: "1.4rem",
+                color: "#444",
                 letterSpacing: "0.05em",
               }}
             >
-              {myVote ?? "?"}
+              ⏰
             </div>
           )}
 
@@ -213,8 +230,21 @@ function MatchCard({
           </p>
         )}
 
-        {/* Vote button */}
-        {!voted && (
+        {/* Deadline passed — not voted */}
+        {isPast && !voted && (
+          <p
+            className="text-center text-xs mt-6 tracking-widest"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              color: "#555",
+            }}
+          >
+            ⏰ Typowanie zamknięte — mecz w toku
+          </p>
+        )}
+
+        {/* Vote button — only before deadline */}
+        {!isPast && !voted && (
           <div className="flex justify-center mt-6">
             <motion.button
               whileHover={{ scale: 1.04 }}

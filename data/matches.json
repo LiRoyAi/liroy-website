@@ -1,0 +1,30 @@
+{
+  "matches": [
+    {
+      "id": "mex-rsa",
+      "group": "A",
+      "t1": { "name": "Meksyk",     "flag": "🇲🇽", "code": "MX" },
+      "t2": { "name": "RPA",        "flag": "🇿🇦", "code": "ZA" },
+      "date": "11 czerwca 2026",
+      "time": "21:00",
+      "deadline": "2026-06-11T19:00:00Z",
+      "h2h": {
+        "balance": "2W — 1D — 1W",
+        "key_fact": "JEDEN MECZ ZAGINĄŁ"
+      }
+    },
+    {
+      "id": "kor-cze",
+      "group": "A",
+      "t1": { "name": "Korea Płd.", "flag": "🇰🇷", "code": "KR" },
+      "t2": { "name": "Czechy",     "flag": "🇨🇿", "code": "CZ" },
+      "date": "11 czerwca 2026",
+      "time": "04:00",
+      "deadline": "2026-06-12T02:00:00Z",
+      "h2h": {
+        "balance": "3W — 2D — 0W",
+        "key_fact": "KOREA NIGDY NIE PRZEGRAŁA"
+      }
+    }
+  ]
+}
