@@ -1,5 +1,7 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import { NextRequest } from "next/server";
+
+const redis = Redis.fromEnv();
 
 export const dynamic = "force-dynamic";
 
@@ -19,13 +21,13 @@ export async function POST(request: NextRequest) {
   const scoreKey = `votes:${matchId}:${score}`;
   const nickKey = `ranking:${nick}`;
 
-  await Promise.all([kv.incr(scoreKey), kv.incr(nickKey)]);
+  await Promise.all([redis.incr(scoreKey), redis.incr(nickKey)]);
 
   const pattern = `votes:${matchId}:*`;
-  const keys = await kv.keys(pattern);
+  const keys = await redis.keys(pattern);
   const counts: Record<string, number> = {};
   if (keys.length > 0) {
-    const values = await kv.mget<number[]>(...keys);
+    const values = await redis.mget<number[]>(...keys);
     keys.forEach((k, i) => {
       const shortKey = k.replace(`votes:${matchId}:`, "");
       counts[shortKey] = values[i] ?? 0;
@@ -42,20 +44,20 @@ export async function GET(request: NextRequest) {
     return Response.json({ error: "matchId required" }, { status: 400 });
   }
 
-  const voteKeys = await kv.keys(`votes:${matchId}:*`);
+  const voteKeys = await redis.keys(`votes:${matchId}:*`);
   const results: Record<string, number> = {};
   if (voteKeys.length > 0) {
-    const values = await kv.mget<number[]>(...voteKeys);
+    const values = await redis.mget<number[]>(...voteKeys);
     voteKeys.forEach((k, i) => {
       const shortKey = k.replace(`votes:${matchId}:`, "");
       results[shortKey] = values[i] ?? 0;
     });
   }
 
-  const rankingKeys = await kv.keys("ranking:*");
+  const rankingKeys = await redis.keys("ranking:*");
   const ranking: { nick: string; points: number }[] = [];
   if (rankingKeys.length > 0) {
-    const values = await kv.mget<number[]>(...rankingKeys);
+    const values = await redis.mget<number[]>(...rankingKeys);
     rankingKeys.forEach((k, i) => {
       ranking.push({ nick: k.replace("ranking:", ""), points: values[i] ?? 0 });
     });
