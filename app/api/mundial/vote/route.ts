@@ -40,18 +40,18 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const matchId = searchParams.get("matchId");
-  if (!matchId) {
-    return Response.json({ error: "matchId required" }, { status: 400 });
-  }
+  const nickParam = searchParams.get("nick");
 
-  const voteKeys = await redis.keys(`votes:${matchId}:*`);
   const results: Record<string, number> = {};
-  if (voteKeys.length > 0) {
-    const values = await redis.mget<number[]>(...voteKeys);
-    voteKeys.forEach((k, i) => {
-      const shortKey = k.replace(`votes:${matchId}:`, "");
-      results[shortKey] = values[i] ?? 0;
-    });
+  if (matchId) {
+    const voteKeys = await redis.keys(`votes:${matchId}:*`);
+    if (voteKeys.length > 0) {
+      const values = await redis.mget<number[]>(...voteKeys);
+      voteKeys.forEach((k, i) => {
+        const shortKey = k.replace(`votes:${matchId}:`, "");
+        results[shortKey] = values[i] ?? 0;
+      });
+    }
   }
 
   const rankingKeys = await redis.keys("ranking:*");
@@ -62,8 +62,23 @@ export async function GET(request: NextRequest) {
       ranking.push({ nick: k.replace("ranking:", ""), points: values[i] ?? 0 });
     });
   }
-
   ranking.sort((a, b) => b.points - a.points);
 
-  return Response.json({ matchId, results, ranking: ranking.slice(0, 10) });
+  const total = ranking.length;
+
+  let userRank: { position: number; points: number } | null = null;
+  if (nickParam) {
+    const idx = ranking.findIndex((e) => e.nick === nickParam);
+    if (idx !== -1) {
+      userRank = { position: idx + 1, points: ranking[idx].points };
+    }
+  }
+
+  return Response.json({
+    matchId,
+    results,
+    ranking: ranking.slice(0, 50),
+    total,
+    userRank,
+  });
 }

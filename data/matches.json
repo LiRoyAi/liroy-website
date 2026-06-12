@@ -8,10 +8,7 @@
       "date": "11 czerwca 2026",
       "time": "21:00",
       "deadline": "2026-06-11T19:00:00Z",
-      "h2h": {
-        "balance": "2W — 1D — 1W",
-        "key_fact": "JEDEN MECZ ZAGINĄŁ"
-      }
+      "h2h": { "balance": "2W — 1D — 1W", "key_fact": "JEDEN MECZ ZAGINĄŁ" }
     },
     {
       "id": "kor-cze",
@@ -21,10 +18,67 @@
       "date": "11 czerwca 2026",
       "time": "04:00",
       "deadline": "2026-06-12T02:00:00Z",
-      "h2h": {
-        "balance": "3W — 2D — 0W",
-        "key_fact": "KOREA NIGDY NIE PRZEGRAŁA"
-      }
+      "h2h": { "balance": "3W — 2D — 0W", "key_fact": "KOREA NIGDY NIE PRZEGRAŁA" }
+    },
+    {
+      "id": "bra-mar",
+      "group": "C",
+      "t1": { "name": "Brazylia",   "flag": "🇧🇷", "code": "BR" },
+      "t2": { "name": "Maroko",     "flag": "🇲🇦", "code": "MA" },
+      "date": "12 czerwca 2026",
+      "time": "19:00",
+      "deadline": "2026-06-12T17:00:00Z",
+      "h2h": { "balance": "3W — 1D — 0W", "key_fact": "BRAZYLIA NIEPOKONANA" }
+    },
+    {
+      "id": "hai-sco",
+      "group": "C",
+      "t1": { "name": "Haiti",      "flag": "🇭🇹", "code": "HT" },
+      "t2": { "name": "Szkocja",    "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "code": "SCO" },
+      "date": "12 czerwca 2026",
+      "time": "22:00",
+      "deadline": "2026-06-12T20:00:00Z",
+      "h2h": { "balance": "0W — 0D — 0W", "key_fact": "PIERWSZE SPOTKANIE" }
+    },
+    {
+      "id": "ger-cuw",
+      "group": "E",
+      "t1": { "name": "Niemcy",     "flag": "🇩🇪", "code": "DE" },
+      "t2": { "name": "Curaçao",    "flag": "🇨🇼", "code": "CW" },
+      "date": "13 czerwca 2026",
+      "time": "01:00",
+      "deadline": "2026-06-12T23:00:00Z",
+      "h2h": { "balance": "0W — 0D — 0W", "key_fact": "PIERWSZE SPOTKANIE" }
+    },
+    {
+      "id": "ned-jpn",
+      "group": "F",
+      "t1": { "name": "Holandia",   "flag": "🇳🇱", "code": "NL" },
+      "t2": { "name": "Japonia",    "flag": "🇯🇵", "code": "JP" },
+      "date": "13 czerwca 2026",
+      "time": "19:00",
+      "deadline": "2026-06-13T17:00:00Z",
+      "h2h": { "balance": "4W — 2D — 1W", "key_fact": "HOLANDIA DOMINUJE" }
+    },
+    {
+      "id": "bel-egy",
+      "group": "G",
+      "t1": { "name": "Belgia",     "flag": "🇧🇪", "code": "BE" },
+      "t2": { "name": "Egipt",      "flag": "🇪🇬", "code": "EG" },
+      "date": "13 czerwca 2026",
+      "time": "22:00",
+      "deadline": "2026-06-13T20:00:00Z",
+      "h2h": { "balance": "1W — 0D — 0W", "key_fact": "BELGIA WYGRYWA JEDYNE H2H" }
+    },
+    {
+      "id": "esp-cpv",
+      "group": "H",
+      "t1": { "name": "Hiszpania",  "flag": "🇪🇸", "code": "ES" },
+      "t2": { "name": "Rep. Zielonego Przylądka", "flag": "🇨🇻", "code": "CV" },
+      "date": "14 czerwca 2026",
+      "time": "01:00",
+      "deadline": "2026-06-13T23:00:00Z",
+      "h2h": { "balance": "0W — 0D — 0W", "key_fact": "PIERWSZE SPOTKANIE" }
     }
   ]
 }

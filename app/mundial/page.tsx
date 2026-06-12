@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Match {
@@ -32,20 +32,139 @@ const MATCHES: Match[] = [
     time: "04:00",
     deadline: "2026-06-12T02:00:00Z",
   },
+  {
+    id: "bra-mar",
+    group: "C",
+    t1: { name: "Brazylia", flag: "🇧🇷" },
+    t2: { name: "Maroko", flag: "🇲🇦" },
+    date: "12 czerwca 2026",
+    time: "19:00",
+    deadline: "2026-06-12T17:00:00Z",
+  },
+  {
+    id: "hai-sco",
+    group: "C",
+    t1: { name: "Haiti", flag: "🇭🇹" },
+    t2: { name: "Szkocja", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
+    date: "12 czerwca 2026",
+    time: "22:00",
+    deadline: "2026-06-12T20:00:00Z",
+  },
+  {
+    id: "ger-cuw",
+    group: "E",
+    t1: { name: "Niemcy", flag: "🇩🇪" },
+    t2: { name: "Curaçao", flag: "🇨🇼" },
+    date: "13 czerwca 2026",
+    time: "01:00",
+    deadline: "2026-06-12T23:00:00Z",
+  },
+  {
+    id: "ned-jpn",
+    group: "F",
+    t1: { name: "Holandia", flag: "🇳🇱" },
+    t2: { name: "Japonia", flag: "🇯🇵" },
+    date: "13 czerwca 2026",
+    time: "19:00",
+    deadline: "2026-06-13T17:00:00Z",
+  },
+  {
+    id: "bel-egy",
+    group: "G",
+    t1: { name: "Belgia", flag: "🇧🇪" },
+    t2: { name: "Egipt", flag: "🇪🇬" },
+    date: "13 czerwca 2026",
+    time: "22:00",
+    deadline: "2026-06-13T20:00:00Z",
+  },
+  {
+    id: "esp-cpv",
+    group: "H",
+    t1: { name: "Hiszpania", flag: "🇪🇸" },
+    t2: { name: "Rep. Zielonego Przylądka", flag: "🇨🇻" },
+    date: "14 czerwca 2026",
+    time: "01:00",
+    deadline: "2026-06-13T23:00:00Z",
+  },
 ];
+
+function categorize(matches: Match[], now: Date) {
+  const active: Match[] = [];
+  const upcoming: Match[] = [];
+  const finished: Match[] = [];
+  for (const m of matches) {
+    const dl = new Date(m.deadline);
+    const windowStart = new Date(dl.getTime() - 2 * 3600_000);
+    const windowEnd = new Date(dl.getTime() + 24 * 3600_000);
+    if (now > windowEnd) finished.push(m);
+    else if (now >= windowStart) active.push(m);
+    else upcoming.push(m);
+  }
+  return { active, upcoming, finished };
+}
+
+function getTimeLeft(target: Date) {
+  const diff = target.getTime() - Date.now();
+  if (diff <= 0) return null;
+  return {
+    h: Math.floor(diff / 3600_000),
+    m: Math.floor((diff % 3600_000) / 60_000),
+    s: Math.floor((diff % 60_000) / 1000),
+  };
+}
+
+function Countdown({ target }: { target: Date }) {
+  const [tl, setTl] = useState(() => getTimeLeft(target));
+  useEffect(() => {
+    const id = setInterval(() => setTl(getTimeLeft(target)), 1000);
+    return () => clearInterval(id);
+  }, [target]);
+  if (!tl)
+    return (
+      <span
+        style={{
+          fontFamily: "'Barlow Condensed', sans-serif",
+          fontWeight: 700,
+          color: "#FFD700",
+        }}
+      >
+        OTWARTO!
+      </span>
+    );
+  return (
+    <span
+      style={{
+        fontFamily: "'Barlow Condensed', sans-serif",
+        fontWeight: 700,
+        color: "#FFD700",
+        fontSize: "1.1rem",
+        letterSpacing: "0.05em",
+      }}
+    >
+      {String(tl.h).padStart(2, "0")}:{String(tl.m).padStart(2, "0")}:
+      {String(tl.s).padStart(2, "0")}
+    </span>
+  );
+}
 
 type Results = Record<string, number>;
 interface RankingEntry {
   nick: string;
   points: number;
 }
+interface UserRank {
+  position: number;
+  points: number;
+}
 
 function MatchCard({
   match,
   nick,
+  upcoming = false,
 }: {
   match: Match;
-  readonly nick: string;
+  nick: string;
+  upcoming?: boolean;
 }) {
   const [score1, setScore1] = useState(0);
   const [score2, setScore2] = useState(0);
@@ -54,6 +173,10 @@ function MatchCard({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const isPast = new Date() > new Date(match.deadline);
+  const windowOpenTime = useMemo(
+    () => new Date(new Date(match.deadline).getTime() - 2 * 3600_000),
+    [match.deadline]
+  );
 
   useEffect(() => {
     const stored = localStorage.getItem(`voted:${match.id}`);
@@ -120,35 +243,32 @@ function MatchCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="relative border border-[#FFD700]/20 bg-[#0a0a0a] rounded-sm overflow-hidden"
+      style={upcoming ? { opacity: 0.7 } : {}}
     >
-      {/* Group badge */}
       <div
         className="absolute top-0 left-0 px-3 py-1 text-xs tracking-widest"
         style={{
           fontFamily: "'Barlow Condensed', sans-serif",
           fontWeight: 700,
-          background: "#FFD700",
-          color: "#000",
+          background: upcoming ? "#333" : "#FFD700",
+          color: upcoming ? "#aaa" : "#000",
         }}
       >
         GRUPA {match.group}
       </div>
 
       <div className="pt-10 pb-6 px-6">
-        {/* Date + time */}
         <p
           className="text-center text-[11px] tracking-widest mb-6"
           style={{
             fontFamily: "'Barlow Condensed', sans-serif",
-            color: "#FFD700",
+            color: upcoming ? "#555" : "#FFD700",
           }}
         >
           {match.date} · {match.time}
         </p>
 
-        {/* Teams row */}
         <div className="flex items-center gap-4">
-          {/* Team 1 */}
           <div className="flex-1 flex flex-col items-center gap-2">
             <span className="text-5xl">{match.t1.flag}</span>
             <span
@@ -163,8 +283,20 @@ function MatchCard({
             </span>
           </div>
 
-          {/* Score pickers / voted display / deadline lock */}
-          {voted ? (
+          {upcoming ? (
+            <div className="flex flex-col items-center gap-1 px-2 text-center">
+              <span
+                className="text-[9px] tracking-widest mb-1"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "#555",
+                }}
+              >
+                OTWARCIE ZA
+              </span>
+              <Countdown target={windowOpenTime} />
+            </div>
+          ) : voted ? (
             <div
               className="text-center px-4"
               style={{
@@ -207,7 +339,6 @@ function MatchCard({
             </div>
           )}
 
-          {/* Team 2 */}
           <div className="flex-1 flex flex-col items-center gap-2">
             <span className="text-5xl">{match.t2.flag}</span>
             <span
@@ -223,15 +354,13 @@ function MatchCard({
           </div>
         </div>
 
-        {/* Error */}
         {error && (
           <p className="text-center text-red-500 text-xs mt-4 tracking-wide">
             {error}
           </p>
         )}
 
-        {/* Deadline passed — not voted */}
-        {isPast && !voted && (
+        {isPast && !voted && !upcoming && (
           <p
             className="text-center text-xs mt-6 tracking-widest"
             style={{
@@ -243,8 +372,7 @@ function MatchCard({
           </p>
         )}
 
-        {/* Vote button — only before deadline */}
-        {!isPast && !voted && (
+        {!isPast && !voted && !upcoming && (
           <div className="flex justify-center mt-6">
             <motion.button
               whileHover={{ scale: 1.04 }}
@@ -264,7 +392,6 @@ function MatchCard({
           </div>
         )}
 
-        {/* Results bars */}
         <AnimatePresence>
           {voted && topScores.length > 0 && (
             <motion.div
@@ -303,9 +430,7 @@ function MatchCard({
                       className="h-full"
                       style={{
                         background:
-                          key === myVote
-                            ? "#FFD700"
-                            : "rgba(255,215,0,0.25)",
+                          key === myVote ? "#FFD700" : "rgba(255,215,0,0.25)",
                       }}
                     />
                   </div>
@@ -373,32 +498,64 @@ function ScorePicker({
   );
 }
 
+function SectionLabel({
+  children,
+  dim = false,
+}: {
+  children: React.ReactNode;
+  dim?: boolean;
+}) {
+  return (
+    <p
+      className="text-xs tracking-[0.4em] mb-6 text-center"
+      style={{
+        fontFamily: "'Barlow Condensed', sans-serif",
+        color: dim ? "#444" : "#FFD700",
+      }}
+    >
+      {children}
+    </p>
+  );
+}
+
 export default function MundialPage() {
   const [nick, setNick] = useState("");
   const [nickSaved, setNickSaved] = useState(false);
   const [nickInput, setNickInput] = useState("");
   const [ranking, setRanking] = useState<RankingEntry[]>([]);
+  const [rankingTotal, setRankingTotal] = useState(0);
+  const [userRank, setUserRank] = useState<UserRank | null>(null);
+  const [finishedOpen, setFinishedOpen] = useState(false);
+  const [now, setNow] = useState(() => new Date());
+
+  const fetchRanking = async (overrideNick?: string) => {
+    try {
+      const n = overrideNick !== undefined ? overrideNick : nick;
+      const nickParam = n ? `&nick=${encodeURIComponent(n)}` : "";
+      const res = await fetch(`/api/mundial/vote?${nickParam}`);
+      if (res.ok) {
+        const data = await res.json();
+        setRanking(data.ranking ?? []);
+        setRankingTotal(data.total ?? 0);
+        setUserRank(data.userRank ?? null);
+      }
+    } catch {
+      // silently ignore
+    }
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("mundial:nick");
     if (stored) {
       setNick(stored);
       setNickSaved(true);
+      fetchRanking(stored);
+    } else {
+      fetchRanking("");
     }
-    fetchRanking();
+    const interval = setInterval(() => setNow(new Date()), 60_000);
+    return () => clearInterval(interval);
   }, []);
-
-  const fetchRanking = async () => {
-    try {
-      const res = await fetch("/api/mundial/vote?matchId=mex-rsa");
-      if (res.ok) {
-        const data = await res.json();
-        setRanking(data.ranking ?? []);
-      }
-    } catch {
-      // silently ignore
-    }
-  };
 
   const saveNick = () => {
     const trimmed = nickInput.trim();
@@ -406,12 +563,18 @@ export default function MundialPage() {
     localStorage.setItem("mundial:nick", trimmed);
     setNick(trimmed);
     setNickSaved(true);
+    fetchRanking(trimmed);
   };
 
   const changeNick = () => {
     setNickSaved(false);
     setNickInput(nick);
   };
+
+  const { active, upcoming, finished } = useMemo(
+    () => categorize(MATCHES, now),
+    [now]
+  );
 
   return (
     <main
@@ -432,7 +595,10 @@ export default function MundialPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-xs tracking-[0.4em] mb-3"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#FFD700" }}
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            color: "#FFD700",
+          }}
         >
           H2H ARCHIVE
         </motion.p>
@@ -454,12 +620,13 @@ export default function MundialPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.25 }}
           className="text-sm tracking-[0.3em] uppercase"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#FFD700" }}
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            color: "#FFD700",
+          }}
         >
           Typuj wyniki — walcz o pozycję w rankingu
         </motion.p>
-
-        {/* Gold divider */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -556,24 +723,95 @@ export default function MundialPage() {
       </section>
 
       {/* Matches */}
-      <section className="px-6 pb-16 max-w-2xl mx-auto space-y-6">
-        <p
-          className="text-xs tracking-[0.4em] mb-6 text-center"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#FFD700" }}
-        >
-          MECZE — 11.06.2026
-        </p>
-        {MATCHES.map((match) => (
-          <MatchCard key={match.id} match={match} nick={nick} />
-        ))}
+      <section className="px-6 pb-16 max-w-2xl mx-auto">
+        {/* Typuj teraz */}
+        {active.length > 0 && (
+          <div className="mb-12">
+            <SectionLabel>TYPUJ TERAZ</SectionLabel>
+            <div className="space-y-6">
+              {active.map((match) => (
+                <MatchCard key={match.id} match={match} nick={nick} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Nadchodzące */}
+        {upcoming.length > 0 && (
+          <div className="mb-12">
+            <SectionLabel dim={active.length > 0}>
+              NADCHODZĄCE ({upcoming.length})
+            </SectionLabel>
+            <div className="space-y-6">
+              {upcoming.map((match) => (
+                <MatchCard
+                  key={match.id}
+                  match={match}
+                  nick={nick}
+                  upcoming
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Zakończone */}
+        {finished.length > 0 && (
+          <div className="mb-4">
+            <button
+              onClick={() => setFinishedOpen((v) => !v)}
+              className="w-full flex items-center justify-between mb-4 hover:opacity-80 transition-opacity"
+            >
+              <span
+                className="text-xs tracking-[0.4em]"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "#333",
+                }}
+              >
+                ZAKOŃCZONE ({finished.length})
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "#333",
+                  fontSize: "0.65rem",
+                }}
+              >
+                {finishedOpen ? "▲ ZWIŃ" : "▼ ROZWIŃ"}
+              </span>
+            </button>
+            <AnimatePresence>
+              {finishedOpen && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="space-y-6 overflow-hidden"
+                >
+                  {finished.map((match) => (
+                    <MatchCard key={match.id} match={match} nick={nick} />
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+
+        {active.length === 0 && upcoming.length === 0 && finished.length === 0 && (
+          <p
+            className="text-center text-[#444] tracking-widest text-sm"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            BRAK MECZÓW
+          </p>
+        )}
       </section>
 
       {/* Ranking */}
       <section className="px-6 pb-24 max-w-lg mx-auto">
         <div className="border border-[#FFD700]/20 bg-[#0a0a0a] rounded-sm overflow-hidden">
-          <div
-            className="px-6 py-4 border-b border-[#FFD700]/10 flex items-center justify-between"
-          >
+          <div className="px-6 py-4 border-b border-[#FFD700]/10 flex items-center justify-between">
             <p
               className="text-xs tracking-[0.4em]"
               style={{
@@ -581,16 +819,17 @@ export default function MundialPage() {
                 color: "#FFD700",
               }}
             >
-              RANKING — TOP 10
+              RANKING — TOP 50
             </p>
             <button
-              onClick={fetchRanking}
+              onClick={() => fetchRanking()}
               className="text-[10px] tracking-widest text-[#444] hover:text-[#FFD700] transition-colors"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
             >
               ODŚWIEŻ
             </button>
           </div>
+
           {ranking.length === 0 ? (
             <p
               className="text-center py-10 text-[#444] text-sm tracking-widest"
@@ -605,7 +844,7 @@ export default function MundialPage() {
                   key={entry.nick}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.02 }}
                   className="flex items-center gap-4 px-6 py-3"
                 >
                   <span
@@ -641,6 +880,34 @@ export default function MundialPage() {
               ))}
             </ul>
           )}
+
+          {/* User position — shown when user is outside top 50 */}
+          {nickSaved && userRank && userRank.position > 50 && (
+            <div className="px-6 py-3 border-t border-[#FFD700]/20 bg-[#0d0d0d]">
+              <p
+                className="text-xs tracking-widest"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "#FFD700",
+                }}
+              >
+                Twoja pozycja: #{userRank.position} — {userRank.points} pkt
+              </p>
+            </div>
+          )}
+
+          {/* Total players */}
+          <div className="px-6 py-2 border-t border-[#111]">
+            <p
+              className="text-[10px] tracking-widest"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                color: "#333",
+              }}
+            >
+              Łącznie graczy: {rankingTotal}
+            </p>
+          </div>
         </div>
       </section>
     </main>
